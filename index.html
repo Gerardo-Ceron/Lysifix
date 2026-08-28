@@ -76,48 +76,6 @@
         cursor: pointer !important; 
     }
 </style>
-      
-</head>
-<body>
-
-<script>
-    async function enviarMensaje() {
-        const input = document.getElementById('entrada');
-        const historial = document.getElementById('historial');
-        const texto = input.value.trim();
-        if (!texto) return;
-
-        // 1. Mostrar mensaje del usuario
-        historial.innerHTML += `<div class="mensaje usuario">${texto}</div>`;
-        input.value = '';
-        historial.scrollTop = historial.scrollHeight;
-
-        // 2. Mostrar indicador de "Pensando..." temporal
-        const idIndicador = 'typing-' + Date.now();
-        historial.innerHTML += `<div class="mensaje bot" id="${idIndicador}">⚡ <i>Procesando...</i></div>`;
-        historial.scrollTop = historial.scrollHeight;
-
-        try {
-            // 3. Petición en tiempo real al backend de Python
-            const respuestaRaw = await fetch('http://localhost:8500/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ texto: texto })
-            });
-            const datos = await respuestaRaw.json();
-            
-            // 4. Reemplazar el indicador por la respuesta real de la IA
-            document.getElementById(idIndicador).outerHTML = `<div class="mensaje bot">${datos.respuesta}</div>`;
-        } catch (error) {
-            document.getElementById(idIndicador).outerHTML = `<div class="mensaje bot">⚠️ Error de conexión con el nodo de IA.</div>`;
-        }
-        historial.scrollTop = historial.scrollHeight;
-    }
-</script>
-
-</body>
-</html>
-    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Lysifix - Portafolio de desarrollo web y proyectos digitales modernos.">
     <title>Lysifix | Desarrollo web y software</title>
@@ -127,7 +85,7 @@
     <div class="site-shell">
         <header class="site-header">
             <div class="brand">
-                <img src="lysifix.png" alt="Logotipo de Lysifix" class="brand-logo">
+                <img src="Lysifix.png" alt="Logotipo de Lysifix" class="brand-logo">
                 <div>
                     <p class="brand-name">Lysifix</p>
                     <p class="brand-tag">Web, software y experiencia digital</p>
@@ -506,6 +464,48 @@
     </div>
 
     <script>
+        async function enviarMensaje() {
+            const input = document.getElementById('entrada');
+            const historial = document.getElementById('historial');
+            const texto = input.value.trim();
+            if (!texto) return;
+
+            const mensajeUsuario = document.createElement('div');
+            mensajeUsuario.className = 'mensaje usuario';
+            mensajeUsuario.textContent = texto;
+            historial.appendChild(mensajeUsuario);
+            input.value = '';
+
+            const indicador = document.createElement('div');
+            indicador.className = 'mensaje bot';
+            indicador.textContent = '⚡ Procesando...';
+            historial.appendChild(indicador);
+            historial.scrollTop = historial.scrollHeight;
+
+            try {
+                const respuestaRaw = await fetch('http://localhost:8500/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ texto })
+                });
+
+                const datos = await respuestaRaw.json();
+                if (!respuestaRaw.ok) {
+                    throw new Error(datos.detail || 'El servidor no pudo responder.');
+                }
+
+                indicador.textContent = datos.respuesta;
+            } catch (error) {
+                indicador.textContent = `⚠️ ${error.message || 'No se pudo conectar con el asistente.'}`;
+                console.error(error);
+            }
+            historial.scrollTop = historial.scrollHeight;
+        }
+
+        document.getElementById('entrada').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') enviarMensaje();
+        });
+
         const revealElements = document.querySelectorAll('.reveal');
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

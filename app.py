@@ -1,19 +1,36 @@
+import os
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import HTTPException
 from pydantic import BaseModel
 from groq import Groq
 
+
+def cargar_entorno():
+    archivo_env = Path(__file__).with_name(".env")
+    if not archivo_env.exists():
+        return
+
+    for linea in archivo_env.read_text(encoding="utf-8").splitlines():
+        linea = linea.strip()
+        if linea and not linea.startswith("#") and "=" in linea:
+            nombre, valor = linea.split("=", 1)
+            os.environ.setdefault(nombre.strip(), valor.strip().strip('"\''))
+
+
+cargar_entorno()
+
 app = FastAPI()
 
-# Permite que tu página web se conecte al backend de Python
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # En producción, cambia "" por el dominio de tu web
+    allow_origins=["*"],  # Permite conectar desde cualquier puerto local
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-client = Groq(api_key="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")
 
 class MensajeUsuario(BaseModel):
     texto: str
@@ -36,15 +53,27 @@ Regla de oro: Si un cliente te pregunta por precios exactos, presupuestos o dice
 
 @app.post("/chat")
 async def chat_endpoint(mensaje: MensajeUsuario):
-    respuesta = client.chat.completions.create(
-        model="llama3-8b-8192",
-        messages=[
-            {"role": "system", "content": INFORMACION_EMPRESA},
-            {"role": "user", "content": mensaje.texto}
-        ],
-        temperature=0.3 # Valores bajos hacen que la IA sea más precisa y no invente datos
-    )
-    return {"respuesta": respuesta.choices.message.content}
+    texto = mensaje.texto.strip()
+    if not texto:
+        raise HTTPException(status_code=422, detail="Escribe una pregunta antes de enviar el mensaje.")
+
+    try:
+      
+        cliente = Groq(api_key="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")
+        
+        respuesta = cliente.chat.completions.create(
+           model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "system", "content": INFORMACION_EMPRESA},
+                {"role": "user", "content": mensaje.texto}
+            ],
+            temperature=0.3
+        )
+        return {"respuesta": respuesta.choices.message.content}
+
+    except Exception as error:
+        print(f"Error de Groq: {error}")
+        raise HTTPException(status_code=502, detail="El proveedor de IA no pudo responder.") from error
 
 if __name__ == "__main__":
     import uvicorn
