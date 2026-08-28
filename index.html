@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+  
+    <style>
+    /* Estilos blindados para que no choquen con estilos.css */
+    #chat-contenedor {
+        position: relative !important;
+        flex: 0 1 220px !important;
+        width: 220px !important;
+        height: 220px !important;
+        border: 1px solid #ccc !important; 
+        border-radius: 10px !important; 
+        display: flex !important; 
+        flex-direction: column !important; 
+        background-color: white !important; 
+        font-family: Arial, sans-serif !important; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important; 
+        z-index: 2 !important;
+        overflow: hidden !important;
+    }
+    #chat-header { 
+        background: #6c5b14 !important; 
+        color: white !important; 
+        padding: 10px !important; 
+        border-top-left-radius: 9px !important; 
+        border-top-right-radius: 9px !important; 
+        font-weight: bold !important; 
+    }
+    #historial { 
+        flex: 1 !important; 
+        padding: 15px !important; 
+        overflow-y: scroll !important; 
+        scrollbar-width: none !important;
+        display: flex !important; 
+        flex-direction: column !important; 
+        gap: 8px !important; 
+        background: #ffffff !important;
+    }
+    #historial .mensaje { 
+        padding: 8px 12px !important; 
+        border-radius: 10px !important; 
+        max-width: 80% !important; 
+        font-size: 13px !important; 
+        margin-bottom: 3px !important;
+    }
+    #historial .usuario { 
+        background: #007bff !important; 
+        color: white !important; 
+        align-self: flex-end !important; 
+    }
+    #historial .bot { 
+        background: #e9ecef !important; 
+        color: black !important; 
+        align-self: flex-start !important; 
+    }
+    #chat-input-area { 
+        display: flex !important; 
+        border-top: 1px solid #ccc !important; 
+        background: white !important;
+    }
+    #chat-input-area #entrada { 
+        flex: 1 !important; 
+        padding: 10px !important; 
+        border: none !important; 
+        outline: none !important; 
+        background: white !important;
+        color: black !important;
+    }
+    #chat-input-area #enviar { 
+        background: #007bff !important; 
+        color: white !important; 
+        border: none !important; 
+        padding: 13px 13px !important; 
+        cursor: pointer !important; 
+    }
+</style>
+      
+</head>
+<body>
+
+<script>
+    async function enviarMensaje() {
+        const input = document.getElementById('entrada');
+        const historial = document.getElementById('historial');
+        const texto = input.value.trim();
+        if (!texto) return;
+
+        // 1. Mostrar mensaje del usuario
+        historial.innerHTML += `<div class="mensaje usuario">${texto}</div>`;
+        input.value = '';
+        historial.scrollTop = historial.scrollHeight;
+
+        // 2. Mostrar indicador de "Pensando..." temporal
+        const idIndicador = 'typing-' + Date.now();
+        historial.innerHTML += `<div class="mensaje bot" id="${idIndicador}">⚡ <i>Procesando...</i></div>`;
+        historial.scrollTop = historial.scrollHeight;
+
+        try {
+            // 3. Petición en tiempo real al backend de Python
+            const respuestaRaw = await fetch('http://localhost:8500/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ texto: texto })
+            });
+            const datos = await respuestaRaw.json();
+            
+            // 4. Reemplazar el indicador por la respuesta real de la IA
+            document.getElementById(idIndicador).outerHTML = `<div class="mensaje bot">${datos.respuesta}</div>`;
+        } catch (error) {
+            document.getElementById(idIndicador).outerHTML = `<div class="mensaje bot">⚠️ Error de conexión con el nodo de IA.</div>`;
+        }
+        historial.scrollTop = historial.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lysifix - Portafolio de desarrollo web y proyectos digitales modernos.">
+    <title>Lysifix | Desarrollo web y software</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <div class="brand">
+                <img src="lysifix.png" alt="Logotipo de Lysifix" class="brand-logo">
+                <div>
+                    <p class="brand-name">Lysifix</p>
+                    <p class="brand-tag">Web, software y experiencia digital</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="#about">Sobre mí</a>
+                <a href="#proyectos">Proyectos</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <div id="chat-contenedor">
+                <div id="chat-header">Asistente Virtual Lysifix</div>
+                <div id="historial">
+                    <div class="mensaje bot">¡Hola! Bienvenido a <em><strong>Lysifix</strong></em> ¿Qué tipo de software necesitas desarrollar?</div>
+                </div>
+                <div id="chat-input-area">
+                    <input type="text" id="entrada" placeholder="Escribe tu duda aquí...">
+                    <button id="enviar" onclick="enviarMensaje()">▶️</button>
+                </div>
+            </div>
+        </header>
+
+
+        <main>
+            <section class="hero reveal">
+                <div class="hero-copy">
+                    <span class="eyebrow">PÁGINA EN CONSTRUCCIÓN</span>
+                    <div class="hero-badges">
+                        <span class="hero-badge">Diseño premium</span>
+                        <span class="hero-badge">Experiencia moderna</span>
+                        <span class="hero-badge">Soluciones digitales</span>
+                    </div>
+                    <h1 style="margin-bottom: 24px; line-height: 1.3;">Tu sitio web listo para despegar</h1>
+                    <p>Diseño web y software a la medida para emprendedores y negocios que buscan un producto digital con estilo y propósito.</p>
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <strong>+6</strong>
+                            <span>Proyectos</span>
+                        </div>
+                        <div class="stat-card">
+                            <strong>100%</strong>
+                            <span>Personalizado</span>
+                        </div>
+                        <div class="stat-card">
+                            <strong>3D</strong>
+                            <span>Estilo visual</span>
+                        </div>
+                    </div>
+                    <div class="hero-actions">
+                        
+                    </div>
+                </div>
+                <aside class="hero-panel ventana-codigo reveal">
+                    <div class="barra-superior">
+                        <div class="botones">
+                            <span class="boton cerrar"></span>
+                            <span class="boton minimizar"></span>
+                            <span class="boton maximizar"></span>
+                        </div>
+                        <span class="titulo-archivo">LysifixEngine.jsx</span>
+                    </div>
+                    <img src="img.png" alt="Vista previa de proyecto" class="preview-image">
+                </aside>
+            </section>
+
+                    <section id="about" class="about-section showcase-section reveal">
+                    <h2>Sobre mí</h2>
+                    <p class="lead">Hola, soy el desarrollador detrás de <strong>Lysifix</strong>.</p>
+                    <p>Me dedico a desarrollar <strong>Scripts lógicos en Python.</strong> Me enfoco en ayudar a <strong>emprendedores, estudiantes y pequeños proyectos independientes</strong> a procesar datos, limpiar y organizar sus archivos y resolver problemas específicos con herramientas sencillas a la medida.</p>
+                    <div class="badges">
+                        <span>🎯 Enfoque directo</span>
+                        <span>⚡ Código limpio</span>
+                        <span>💼 Soluciones a medida</span>
+                    </div>
+                    </section>
+
+                    <section class="service-section showcase-section reveal">
+                    <span style="color: #ffcc00; font-weight: bold">Scripts en Python</span>
+                    <h2 style="font-size: 2rem; margin-top: 10px;">¿Que tipo de Scripts puedo crear para ti?</h2>
+                    <p>Ahorra horas de entrada manual de datos, elimina por completo los errores humanos y entrega información limpia lista para usarse en cualquier aplicación web.</p>
+                    <p><strong>Lo que incluye tu proyecto:</strong></p>
+                    <ul>
+                        <li><strong>Automatización de archivos y datos:</strong> Archivos Excel, CSV, TXT y JSON. Olvídate de copiar y pegar datos entre diferentes formato e informes. Unifico reportes y extraigo información clave con un solo clic.</li>
+                        <li><strong>Organización o renombramiento de archivos por lotes:</strong> Clasifico y organizo archivos, renombro de forma masiva siguiendo el patrón que elijas. Encontrarás cualquier documento rápidamente en carpetas automatizadas.</li>
+                        <li><strong>Limpieza y procesamiento básicos de datos:</strong> Elimino duplicados y corrijo errores de escritura comunes automáticamente. Relleno o filtro celdas vacías segun tus necesidades. Preparo tus bases de datps para que tomes decisiones sin errores..</li>
+                        <li><strong>Scripts lógicos sencillos para resolver problemas específicos:</strong> Creo programas cortos paea retos que el software común o resuelve. Programo alertas de inventario, cálculos de comisiones o vencimientos.resuelvo necesidades muy particulares de la operación diari de tu negocio..</li>
+                    </ul>
+                    </section>
+
+                    <section class="service-section showcase-section reveal">
+                    <span style="color: #ffcc00; font-weight: bold">Diseño y Desarrollo Web</span>
+                    <h2 style="font-size: 2rem; margin-top: 10px;">Sitios web a la medida de tu negocio</h2>
+                    <p>Olvídate de sistemas complicados que requieren descargas o instalaciones pesadas. Creo plataformas que se abren directo desde el navegador.</p>
+                    <p><strong>Lo que incluye tu proyecto:</strong></p>
+                    <ul>
+                        <li><strong>Acceso total:</strong> Tu sitio funcionará al instante en celulares, tablets y computadoras.</li>
+                        <li><strong>Diseño único:</strong> Creo una estructura visual atractiva que conecta con tus clientes.</li>
+                        <li><strong>Carga rápida:</strong> Optimizo la página para que tus usuarios no tengan que esperar para verte.</li>
+                    </ul>
+                    </section>
+
+                    <section class="service-section showcase-section reveal">
+                    <span style="color: #ffcc00; font-weight: bold;">Aplicaciones de Escritorio</span>
+                    <h2 style="font-size: 2rem; margin-top: 10px;">Herramientas para organizar tu día a día</h2>
+                    <p>Diseño software práctico y visual que te ayuda a automatizar tareas, mejorar la productividad de tu equipo y administrar los datos de tu negocio de forma segura.</p>
+                    <p><strong>Lo que resuelvo por ti:</strong></p>
+                    <ul>
+                        <li><strong>Control total:</strong> Herramientas enfocadas en organizar cálculos, inventarios o tareas internas.</li>
+                        <li><strong>Diseño intuitivo:</strong> Interfaces limpias y fáciles de usar, pensadas para evitar la fatiga visual.</li>
+                        <li><strong>Fluidez asegurada:</strong> Programas optimizados para responder al instante en cualquier laptop o computadora.</li>
+                    </ul>
+                    </section>
+
+                    <section class="service-section showcase-section reveal">
+                    <span style="color: #ffcc00; font-weight: bold;">Desarrollo Web y Móvil</span>
+                    <h2 style="font-size: 2rem; margin-top: 10px;">Tu negocio en cualquier pantalla</h2>
+                    <p>Creo páginas web y aplicaciones móviles modernas que se adaptan al ritmo de tu negocio. Sin instalaciones complicadas y listas para usar desde el navegador o el celular.</p>
+                    <p><strong>Lo que incluye tu proyecto:</strong></p>
+                    <ul>
+                        <li><strong>Diseño móvil y web:</strong> Tu plataforma se verá y funcionará increíble tanto en computadoras como en teléfonos Android y iPhone.</li>
+                        <li><strong>Estructura única:</strong> Diseño una interfaz limpia y atractiva pensada especialmente para la comodidad de tus clientes.</li>
+                        <li><strong>Máxima velocidad:</strong> Optimizo cada línea de código para que tu sitio o app cargue al instante desde cualquier lugar.</li>
+                    </ul>
+                    </section>
+
+                    <section id="proyectos" class="section-contact reveal">
+                        <div>
+                                        <h2>Proyectos destacados</h2>
+                                        <p style="color: #cccccc; font-size: 1.1rem; margin-bottom: 20px;">Una selección de software y aplicaciones que demuestran mi capacidad técnica, lógica de programación y diseño funcional.</p>
+                        </div>
+                    </section>
+              </main>
+
+                            <div class="section-">
+                                <div>
+                                    <span style="color: #ffcc00; font-weight: bold;">Scripts en Python</span>
+                                    <h2>Automatización de archivos y datos</h2>
+                                </div>
+                                <p>Ahorro de tiempo, cero tareas manuales y flujos eficientes.</p>
+                            </div>
+                                <div class="showcase-grid">
+                    <article class="showcase-card showcase-card--desktop">
+                        <div class="showcase-preview">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-bar"></span>
+                        </div>
+                        <div class="showcase-media">
+                            <img src="capt1.png" alt="Vista previa de la calculadora en consola" class="showcase-image">
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-icon">💻</div>
+                            <h3>Script Automatizado</h3>
+                            <p>Conexión y manipulación automática de formatos de archivo.</p>
+                            <ul class="showcase-list">
+                                <li>Elimina tareas repetitivas de copiado y pegado</li>
+                                <li>Extraer información de múltiples facturas JSON</li>
+                                <li>Unificar reportes mensuales de Excel</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="showcase-card showcase-card--desktop">
+                        <div class="showcase-preview">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-bar"></span>
+                        </div>
+                        <div class="showcase-media">
+                            <img src="capt2.png" alt="Vista previa de la interfaz visual de la calculadora" class="showcase-image">
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-icon">📊</div>
+                            <h3>Código fuente optimizado</h3>
+                            <p>Script limpio, estructurado y documentado en Python listo para ejecutar.</p>
+                            <ul class="showcase-list">
+                                <li>Automatización inmediata</li>
+                                <li>Reportes unificados</li>
+                                <li>Interfaz entregable claro</li>
+                            </ul>
+                        </div>
+                            </article>
+                        </div>
+                   </section>
+
+            <section class="showcase-section reveal">
+                <div class="section-heading">
+                    <div>
+                        <span style="color: #ffcc00; font-weight: bold;">Aplicaciones para computadora</span>
+                        <h2>Soluciones de escritorio con identidad propia</h2>
+                    </div>
+                    <p>Herramientas pensadas para productividad, entretenimiento y una experiencia visual más cercana a un producto profesional.</p>
+                </div>
+                <div class="showcase-grid">
+                    <article class="showcase-card showcase-card--desktop">
+                        <div class="showcase-preview">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-bar"></span>
+                        </div>
+                        <div class="showcase-media">
+                            <img src="img1.png" alt="Vista previa de la calculadora en consola" class="showcase-image">
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-icon">🧮</div>
+                            <h3>Calculadora en consola</h3>
+                            <p>Una primera versión funcional, sencilla y directa, pensada para mostrar la base lógica del proyecto desde el inicio.</p>
+                            <ul class="showcase-list">
+                                <li>Funcionalidad básica</li>
+                                <li>Diseño minimalista</li>
+                                <li>Base de desarrollo</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="showcase-card showcase-card--desktop">
+                        <div class="showcase-preview">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-bar"></span>
+                        </div>
+                        <div class="showcase-media">
+                            <img src="img2.png" alt="Vista previa de la interfaz visual de la calculadora" class="showcase-image">
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-icon">🖱️</div>
+                            <h3>Interfaz visual</h3>
+                            <p>La transición a una experiencia más visual, con botones interactivos y una identidad más clara para la herramienta.</p>
+                            <ul class="showcase-list">
+                                <li>Botones interactivos</li>
+                                <li>Experiencia más amigable</li>
+                                <li>Evolución del diseño</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="showcase-card showcase-card--desktop">
+                        <div class="showcase-preview">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-bar"></span>
+                        </div>
+                        <div class="showcase-media">
+                            <img src="img3.png" alt="Vista previa de la calculadora premium" class="showcase-image">
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-icon">🖥️</div>
+                            <h3>Calculadora premium</h3>
+                            <p>Una herramienta elegante con lógica refinada y una interfaz que se siente cercana a una app de escritorio real.</p>
+                            <ul class="showcase-list">
+                                <li>Interfaz moderna</li>
+                                <li>Operaciones avanzadas</li>
+                                <li>Diseño pensado para usuarios</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="showcase-card showcase-card--desktop">
+                        <div class="showcase-preview">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-bar"></span>
+                        </div>
+                        <div class="showcase-media">
+                            <img src="Snake2.png" alt="Vista previa del juego Snake interactivo" class="showcase-image">
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-icon">🎮</div>
+                            <h3>Snake interactivo</h3>
+                            <p>Un proyecto con base de juego, movimiento fluido y una propuesta visual que puede evolucionar hacia un producto completo.</p>
+                            <ul class="showcase-list">
+                                <li>Control intuitivo</li>
+                                <li>Mejor experiencia visual</li>
+                                <li>Escalabilidad para más funciones</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="showcase-section reveal">
+                <div class="section-heading">
+                    <div>
+                        <span style="color: #ffcc00; font-weight: bold;">Aplicaciones móviles</span>
+                        <h2>Experiencias rápidas, claras y memorables</h2>
+                    </div>
+                    <p>Un vistazo a las aplicaciones y herramientas que he construido desde cero.</p>
+                </div>
+                <div class="showcase-grid">
+                    <article class="showcase-card showcase-card--mobile">
+                        <div class="showcase-preview">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-bar"></span>
+                        </div>
+                        <img src="imgapp1.png" alt="Snake Lysifix" class="showcase-image">
+                        <div class="showcase-content">
+                            <div class="showcase-icon">📱</div>
+                            <h3>Snake móvil</h3>
+                            <p>Una versión de Snake con actitud, donde cada giro se siente más rápido, más divertido y un poco más caótico de lo que debería.</p>
+                            <ul class="showcase-list">
+                                <li>Diseño minimalista</li>
+                                <li>Navegación intuitiva</li>
+                                <li>Enfoque en velocidad</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="showcase-card showcase-card--mobile">
+                        <div class="showcase-preview">
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-dot"></span>
+                            <span class="preview-bar"></span>
+                        </div>
+                        <img src="imgapp2.png" alt="Calculadora Lysifix" class="showcase-image">
+                        <div class="showcase-content">
+                            <div class="showcase-icon">⚡</div>
+                            <h3>Calculadora móvil</h3>
+                            <p>Una idea de app con un toque chistoso y muy útil, donde las cuentas salen rápido y el diseño se siente más vivo que una calculadora normal.</p>
+                            <ul class="showcase-list">
+                                <li>Visualización limpia</li>
+                                <li>Flujo de uso simple</li>
+                                <li>Escalable a funciones reales</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+               <section id="contacto" class="section-contact reveal">
+                <div>
+                                        <h2>Contratación y Desarrollo Seguro</h2>
+                                        <p style="color: #cccccc; font-size: 1.1rem; margin-bottom: 20px;">Para tu total tranquilidad y la mía, utilizo <strong>Fiverr</strong> como mi plataforma oficial de facturación, gestión de pagos y entregas.
+                                        <ul>
+                                    <li><strong>¿Cómo te beneficia esto como cliente?</strong></li>
+                                
+                            <li><strong>Pago protegido:</strong> Tu dinero se mantiene en depósito seguro y solo se libera cuando recibes y apruebas el software.</li>
+                        
+                    <li><strong>Garantía de entrega:</strong> Todo el proceso cuenta con el respaldo y la mediación de una plataforma global.</li>
+                
+            <li><strong>Transparencia:</strong> Contratos claros, tiempos de entrega definidos y facturación sin complicaciones.</p></div>
+                </ul>
+            </div>
+        </main>
+
+            <section id="contacto" class="section-contact reveal">
+                <div>
+                                      
+                                        <h2>Hagamos equipo para tu próximo proyecto</h2>
+                                        <p style="color: #cccccc; font-size: 1.1rem; margin-bottom: 20px;">Si buscas crear una página web, lanzar tu app móvil o renovar la presencia digital de tu negocio, estoy listo para ayudarte a dar el siguiente paso. ¡Escríbeme y lo revisamos!</p>
+                </div>
+                <a href="https://github.com/Gerardo-Ceron" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visitar GitHub</a>
+            </section>
+        </main>
+
+
+            <section id="contacto" class="section-contact reveal">
+                <div>
+                                        <h2>Contratar servicio de forma segura a través de Fiverr</h2>
+                                        <p style="color: #cccccc; font-size: 1.1rem; margin-bottom: 20px;">Para garantizar la máxima seguridad en el manejo de contratos y entregas de código, toda la gestión y contratación final se realiza exclusivamente a través de plataformas certificadas.</p>
+                </div>
+               <a href="TU_ENLACE_DE_FIVERR_AQUÍ" class="boton-fiverr">Visitar Fiverr</a>
+            </section>
+        </main>
+
+      
+
+
+
+<footer class="site-footer reveal">
+            <p>Desarrollado por Gerardo C.&copy; 2026 Lysifix. <em>Todos los derechos reservados.</em></p>
+        </footer>
+    </div>
+
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const showReveals = () => {
+            revealElements.forEach((element) => element.classList.add('is-visible'));
+        };
+
+        if (!prefersReducedMotion) {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.16 });
+
+            revealElements.forEach((element) => observer.observe(element));
+            window.setTimeout(showReveals, 120);
+        } else {
+            showReveals();
+        }
+    </script>
+</body>
+</html>
