@@ -494,6 +494,8 @@
                     throw new Error(datos.detail || 'El servidor no pudo responder.');
                 }
 
+                // Esto intenta leer 'response' y si no lo encuentra, usa lo que venga del servidor
+indicador.textContent = datos.response || datos.respuesta || datos.texto || JSON.stringify(datos);
                 indicador.textContent = datos.response;
             } catch (error) {
                 indicador.textContent = `⚠️ ${error.message || 'No se pudo conectar con el asistente.'}`;
