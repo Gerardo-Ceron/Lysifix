@@ -59,7 +59,7 @@ async def chat_endpoint(mensaje: MensajeUsuario):
 
     try:
       
-        cliente = Groq(api_key="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")
+        cliente = Groq(api_key=os.environ.get("GROQ_API_KEY"))
         
         respuesta = cliente.chat.completions.create(
            model="llama-3.3-70b-versatile",
