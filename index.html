@@ -12,11 +12,11 @@
         height: 220px !important;
         border: 1px solid #ccc !important; 
         border-radius: 10px !important; 
-        display: flex !important; 
+        display: none; 
         flex-direction: column !important; 
         background-color: white !important; 
         font-family: Arial, sans-serif !important; 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important; 
+        box-shadow: 0 4px 10px rgba(2,0,0,0.1) !important; 
         z-index: 2 !important;
         overflow: hidden !important;
     }
@@ -41,7 +41,7 @@
     #historial .mensaje { 
         padding: 8px 12px !important; 
         border-radius: 10px !important; 
-        max-width: 80% !important; 
+        max-width: 50% !important; 
         font-size: 13px !important; 
         margin-bottom: 3px !important;
     }
@@ -529,5 +529,29 @@
             showReveals();
         }
     </script>
+
+    <!-- Botón flotante -->
+<button id="boton-chat-flotante" style="position: fixed; bottom: 20px; right: 20px; background-color: #6c5b14; color: white; border: none; padding: 12px 18px; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 9999;">
+    💬 Chatear
+</button>
+
+<!-- Interruptor del chat -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const chatContenedor = document.getElementById("chat-contenedor");
+    const botonChat = document.getElementById("boton-chat-flotante"); 
+
+    if (botonChat && chatContenedor) {
+        botonChat.addEventListener("click", function() {
+            // Alterna entre mostrar en flex u ocultar
+            if (chatContenedor.style.display === "none" || chatContenedor.style.display === "") {
+                chatContenedor.style.display = "flex";
+            } else {
+                chatContenedor.style.display = "none";
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
