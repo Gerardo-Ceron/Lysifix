@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -14,32 +15,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# RUTA PRINCIPAL CON PARÁMETROS SEGUROS
+# 1. RUTA PARA JALAR TU PORTAFOLIO VISUAL COMPLETO
 @app.get("/", response_class=HTMLResponse)
 async def home():
     if os.path.exists("index.html"):
         with open("index.html", "r", encoding="utf-8") as archivo:
             return archivo.read()
-    return "<h1>Lysifix: Servidor activo, pero no se encontró tu archivo index.html</h1>"
+    return "<h1>Lysifix: Servidor activo</h1>"
 
-# Reemplaza la función "servir_archivos_locales" por esta versión avanzada:
-@app.get("/{archivo_nombre:path}")
-async def servir_archivos_locales(archivo_nombre: str):
-    # Primero busca en la raíz
-    if os.path.exists(archivo_nombre):
-        return FileResponse(archivo_nombre)
-        
-    # Si no lo encuentra, busca de forma inteligente en subcarpetas comunes
-    carpetas_comunes = ["css", "img", "assets", "public", "images", "js"]
-    for carpeta in carpetas_comunes:
-        ruta_inteligente = os.path.join(carpeta, archivo_nombre)
-        if os.path.exists(ruta_inteligente):
-            return FileResponse(ruta_inteligente)
-            
-    return HTMLResponse(status_code=404)
-
+# 2. EL CONECTOR DEL CHAT (Mantiene tu bot inteligente)
 class MensajeUsuario(BaseModel):
-    mensaje: str
+    message: str
 
 def obtener_respuesta_ia(mensaje_usuario: str):
     mensaje = mensaje_usuario.lower()
@@ -56,7 +42,11 @@ def obtener_respuesta_ia(mensaje_usuario: str):
 
 @app.post("/chat")
 async def chat_endpoint(datos: MensajeUsuario):
-    if not datos.mensaje or not datos.mensaje.strip():
+    if not datos.message or not datos.message.strip():
         return {"respuesta": "El mensaje no puede estar vacío"}
-    respuesta_bot = obtener_respuesta_ia(datos.mensaje)
+    respuesta_bot = obtener_respuesta_ia(datos.message)
     return {"respuesta": respuesta_bot}
+
+# 3. TRUCO FINAL DE FASTAPI: Sirve todas tus carpetas (css, img, assets) de forma nativa
+# Va hasta el final del archivo para que no tape las rutas del chat
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
