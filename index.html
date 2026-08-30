@@ -512,14 +512,17 @@ if (
 ) {
     respuestaAsistente = saludoInicial + "Para conocer los precios, automatizaciones y opciones de cotización para páginas web, archivos o desarrollo de software, puedes visitar nuestro enlace oficial de Fiverr: https://es.fiverr.com/users/g...";
 } 
+    
 else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok") || mensajeValido.includes("entendido")) {
     respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr.";
 } 
+    
 else if (saludoInicial !== "") {
     // Si solo saludó y no especificó ningún servicio o precio
     respuestaAsistente = saludoInicial + "¿En qué te puedo ayudar?";
 } 
 else {
+    
     // Si escribió algo que el bot no logra identificar
     respuestaAsistente = "Para conocer mis servicios de desarrollo de software, automatización o darte una cotización a la medida, por favor contáctame en nuestro enlace oficial de Fiverr.";
 }
