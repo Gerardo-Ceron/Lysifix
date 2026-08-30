@@ -1,7 +1,6 @@
 import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles # <-- IMPORTANTE
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -15,26 +14,64 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# RUTA PRINCIPAL CORREGIDA
+# ESTA ES LA FUNCIÓN QUE HACE QUE JALE TU PÁGINA WEB VISUAL
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    # Busca el archivo index.html en la raíz de tu proyecto
-    ruta_index = os.path.join(os.path.dirname(_file_), "index.html")
-    if os.path.exists(ruta_index):
-        with open(ruta_index, "r", encoding="utf-8") as archivo:
-            return archivo.read()
-    return "<h1>Lysifix: Servidor activo, pero no se encontró el archivo index.html</h1>"
+    html_contenido = """
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lysifix</title>
+        <style>
+            body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; }
+            h1 { color: #1a73e8; }
+        </style>
+    </head>
+    <body>
+        <h1>Bienvenido a Lysifix</h1>
+        <p>Tu sitio web está en línea y el chat está listo.</p>
+        
+        <!-- Contenedor del Chat -->
+        <div id="chat-contenedor" style="margin-top: 20px;">
+            <div id="historial" style="border: 1px solid #ccc; height: 200px; padding: 10px; overflow-y: auto; background: white; margin-bottom: 10px;"></div>
+            <input type="text" id="entrada" placeholder="Escribe tu duda aquí..." style="padding: 8px; width: 250px;">
+            <button onclick="enviarMensaje()" style="padding: 8px 15px; background: #1a73e8; color: white; border: none; cursor: pointer;">Enviar</button>
+        </div>
 
-# ... (Todo tu código de abajo de MensajeUsuario y obtener_respuesta_ia se queda igual)
+        <script>
+        async function enviarMensaje() {
+            const inputEntrada = document.getElementById("entrada");
+            const historial = document.getElementById("historial");
+            const textoUsuario = inputEntrada.value.trim();
 
-# ==========================================
-# Todo lo demás de tu código lo dejas IGUAL abajo:
-# ==========================================
+            if (textoUsuario === "") return;
+
+            historial.innerHTML += <div><b>Tú:</b> ${textoUsuario}</div>;
+            inputEntrada.value = ""; 
+
+            try {
+                const respuesta = await fetch("https://lysifix.dev", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "mensaje": textoUsuario })
+                });
+                const datos = await respuesta.json();
+                historial.innerHTML += <div style="color: blue;"><b>Bot:</b> ${datos.respuesta}</div>;
+                historial.scrollTop = historial.scrollHeight;
+            } catch (error) {
+                historial.innerHTML += <div style="color: red;">Error al conectar con el asistente.</div>;
+            }
+        }
+        </script>
+    </body>
+    </html>
+    """
+    return html_contenido
+
 class MensajeUsuario(BaseModel):
     mensaje: str
 
-def obtener_respuesta_ia(mensaje_usuario: str):
-    # ... (aquí van tus IF/ELIF del bot, déjalos como están)
 def obtener_respuesta_ia(mensaje_usuario: str):
     mensaje = mensaje_usuario.lower()
     
