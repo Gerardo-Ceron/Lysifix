@@ -1,7 +1,6 @@
 import os
 from openai import OpenAI
 
-
 def obtener_respuesta_ia(mensaje_usuario):
     # Convertimos el mensaje a minúsculas para que no importen las mayúsculas
     mensaje = mensaje_usuario.lower()
