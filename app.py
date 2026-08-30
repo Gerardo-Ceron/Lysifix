@@ -1,7 +1,18 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware # <-- NUEVA IMPORTACIÓN
 from pydantic import BaseModel
 
 app = FastAPI()
+
+# <-- NUEVO BLOQUE DE CONFIGURACIÓN CORS:
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Permite que tu página web se conecte desde cualquier lado
+    allow_credentials=True,
+    allow_methods=["*"], # Permite usar POST, GET, etc.
+    allow_headers=["*"],
+)
+
 
 class MensajeUsuario(BaseModel):
     mensaje: str
