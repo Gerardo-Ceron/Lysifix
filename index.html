@@ -450,7 +450,7 @@
                                         <h2>Contratar servicio de forma segura a través de Fiverr</h2>
                                         <p style="color: #cccccc; font-size: 1.1rem; margin-bottom: 20px;">Para garantizar la máxima seguridad en el manejo de contratos y entregas de código, toda la gestión y contratación final se realiza exclusivamente a través de plataformas certificadas.</p>
                 </div>
-               <a href="TU_ENLACE_DE_FIVERR_AQUÍ" class="boton-fiverr">Visitar Fiverr</a>
+               <a href="https://es.fiverr.com/sellers/gerardo_cg/edit" class="boton-fiverr">Visitar Fiverr</a>
             </section>
         </main>
 
@@ -489,7 +489,7 @@
 
         // 2. El cerebro del bot analiza las palabras clave del cliente
         if (mensajeValido.includes("hola") || mensajeValido.includes("buen")) {
-            respuestaAsistente = "¡Hola! Bienvenido a Lysifix. Soy tu asistente virtual. ¿En qué tipo de proyecto web o desarrollo de software te puedo apoyar hoy?";
+            respuestaAsistente = "¡Hola! Bienvenido a Lysifix. ¿En qué te puedo apoyar hoy?";
         } 
         else if (mensajeValido.includes("precio") || mensajeValido.includes("costo") || mensajeValido.includes("cuanto") || mensajeValido.includes("contratar")) {
             respuestaAsistente = "¡Excelente! Para garantizar tu máxima seguridad, transparencia y protección de tu dinero, manejamos todas nuestras contrataciones y ofertas personalizadas a través de la plataforma global Fiverr. Puedes ver nuestros paquetes oficiales y mandarme un mensaje directo dando clic aquí: https://fiverr.com";
@@ -498,7 +498,7 @@
             respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr para comenzar a trabajar en tu proyecto cuando lo desees. ¡Excelente día!";
         } 
         else {
-            respuestaAsistente = "Entiendo perfectamente tu solicitud. Para darte una cotización exacta, detalles técnicos o armar una oferta a tu medida de forma 100% segura, por favor contáctame a través de nuestro canal oficial en Fiverr: https://fiverr.com. ¡Ahí te atenderé de inmediato!";
+            respuestaAsistente = "Entiendo. Para darte una cotización exacta, detalles técnicos o armar una oferta a tu medida de forma 100% segura, por favor contáctame a través del canal oficial en Fiverr: https://es.fiverr.com/sellers/gerardo_cg/edit. ¡Ahí te atenderé de inmediato!";
         }
 
         // 3. Simulamos un pequeño retraso de medio segundo para que parezca que la IA está pensando
@@ -566,41 +566,3 @@ document.addEventListener("DOMContentLoaded", function() {
 </body>
 </html>
 
-async function enviarMensaje() {
-    const inputEntrada = document.getElementById("entrada");
-    const historial = document.getElementById("historial");
-    const textoUsuario = inputEntrada.value.trim();
-
-    if (textoUsuario === "") return;
-
-    // Pintamos el mensaje del usuario en la pantalla
-    historial.innerHTML += <div class="mensaje usuario" style="padding: 8px; margin: 5px 0; background: #e0e0e0; align-self: flex-end; border-radius: 8px; max-width: 80%;">${textoUsuario}</div>;
-    inputEntrada.value = ""; 
-
-    try {
-        // Hacemos la llamada a tu servidor de Python
-        const respuesta = await fetch("https://lysifix.dev", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "mensaje": textoUsuario
-            })
-        });
-
-        const datos = await respuesta.json();
-        
-        // Pintamos la respuesta del bot que viene desde Python
-        historial.innerHTML += <div class="mensaje bot" style="padding: 8px; margin: 5px 0; background: #1a73e8; color: white; align-self: flex-start; border-radius: 8px; max-width: 80%;">${datos.respuesta}</div>;
-        
-        historial.scrollTop = historial.scrollHeight;
-
-    } catch (error) {
-        console.error("Error al conectar con el servidor:", error);
-        historial.innerHTML += <div class="mensaje bot" style="padding: 8px; margin: 5px 0; background: #ffcdd2; color: #b71c1c; align-self: flex-start; border-radius: 8px;">Error al conectar con el asistente.</div>;
-    }
-}
-</script>
-</body>
-</html>
