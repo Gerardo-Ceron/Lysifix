@@ -523,15 +523,6 @@ else {
     // Si escribió algo que el bot no logra identificar
     respuestaAsistente = "Para conocer mis servicios de desarrollo de software, automatización o darte una cotización a la medida, por favor contáctame en nuestro enlace oficial de Fiverr.";
 }
-              
-else if (saludoInicial !== "") {
-    // Si solo saludó y no pidió nada más
-    respuestaAsistente = saludoInicial + "¿En qué te puedo ayudar?";
-} 
-else {
-    // Si no saludó ni pidió nada identificable
-    respuestaAsistente = "Para conocer mis servicios o darte una cotización, por favor contáctame directamente a través de nuestro enlace de Fiverr.";
-}
         // 3. Simulamos un pequeño retraso de medio segundo para que parezca que la IA está pensando
         const tiempoPensando = Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500;
 await new Promise(resolve => setTimeout(resolve, tiempoPensando));
