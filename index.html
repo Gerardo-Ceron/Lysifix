@@ -490,18 +490,40 @@
         // 2. El cerebro del bot analiza las palabras clave del cliente
 let saludoInicial = "";
 
+// 2. El cerebro del bot analiza las palabras clave del cliente
+let saludoInicial = "";
+
 // Si el mensaje incluye un saludo, lo guardamos temporalmente
-if (mensajeValido.includes("hola") || mensajeValido.includes("buen")) {
+if (mensajeValido.includes("hola") || mensajeValido.includes("buen") || mensajeValido.includes("as")) {
     saludoInicial = "¡Hola! Bienvenido a Lysifix. ";
 }
 
-// Evaluamos las intenciones de negocio
-if (mensajeValido.includes("precio") || mensajeValido.includes("costo") || mensajeValido.includes("cotiza")) {
-    respuestaAsistente = saludoInicial + "Para conocer los precios y opciones de cotización, puedes visitar nuestro enlace oficial de Fiverr: https://es.fiverr.com/users/g...";
+// Evaluamos las intenciones de negocio (Precios, Cotizaciones o Servicios específicos)
+if (
+    mensajeValido.includes("precio") || 
+    mensajeValido.includes("costo") || 
+    mensajeValido.includes("cotiza") || 
+    mensajeValido.includes("web") || 
+    mensajeValido.includes("automatiz") || 
+    mensajeValido.includes("dato") || 
+    mensajeValido.includes("archivo") || 
+    mensajeValido.includes("software") || 
+    mensajeValido.includes("script")
+) {
+    respuestaAsistente = saludoInicial + "Para conocer los precios, automatizaciones y opciones de cotización para páginas web, archivos o desarrollo de software, puedes visitar nuestro enlace oficial de Fiverr: https://es.fiverr.com/users/g...";
 } 
-else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok")) {
+else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok") || mensajeValido.includes("entendido")) {
     respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr.";
 } 
+else if (saludoInicial !== "") {
+    // Si solo saludó y no especificó ningún servicio o precio
+    respuestaAsistente = saludoInicial + "¿En qué te puedo ayudar?";
+} 
+else {
+    // Si escribió algo que el bot no logra identificar
+    respuestaAsistente = "Para conocer mis servicios de desarrollo de software, automatización o darte una cotización a la medida, por favor contáctame en nuestro enlace oficial de Fiverr.";
+}
+              
 else if (saludoInicial !== "") {
     // Si solo saludó y no pidió nada más
     respuestaAsistente = saludoInicial + "¿En qué te puedo ayudar?";
