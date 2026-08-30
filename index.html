@@ -482,56 +482,52 @@
             historial.appendChild(indicador);
             historial.scrollTop = historial.scrollHeight;
 
-          try {
-        // 1. Convertimos el mensaje del usuario a minúsculas para leerlo fácil
-        const mensajeValido = texto.toLowerCase().trim();
-        let respuestaAsistente = "";
+        try {
+            const mensajeValido = texto.toLowerCase().trim();
+            let saludoInicial = "";
+            let respuestaAsistente = "";
 
-         // 2. El cerebro del bot analiza las palabras clave del cliente
-let saludoInicial = "";
-respuestaAsistente = data.respuesta;
-}
+            if (
+                mensajeValido.includes("hola") ||
+                mensajeValido.includes("buenas") ||
+                mensajeValido.includes("buenos") ||
+                mensajeValido.includes("saludos")
+            ) {
+                saludoInicial = "¡Hola! ";
+            }
 
-// Evaluamos si pide información general, cotizaciones o servicios específicos
-if (
-    mensajeValido.includes("informac") || 
-    mensajeValido.includes("info") || 
-    mensajeValido.includes("precio") || 
-    mensajeValido.includes("costo") || 
-    mensajeValido.includes("cotiza") || 
-    mensajeValido.includes("web") || 
-    mensajeValido.includes("automatiz") || 
-    mensajeValido.includes("dato") || 
-    mensajeValido.includes("archivo") || 
-    mensajeValido.includes("software") || 
-    mensajeValido.includes("script")
-) {
-    respuestaAsistente = saludoInicial + "Para darte información detallada sobre precios, automatizaciones y cotizaciones de páginas web o software, puedes visitar nuestro enlace oficial de Fiverr: https://fiverr.com...";
-} 
-else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok") || mensajeValido.includes("entendido")) {
-    respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr.";
-} 
-else if (saludoInicial !== "") {
-    // Si solo saludó con un "hola" a secas y no pidió nada más
-    respuestaAsistente = saludoInicial;
-} 
-else {
-    // Si escribió algo que el bot no logra identificar
-    respuestaAsistente = "Para conocer mis servicios de desarrollo de software, automatización o darte una cotización a la medida, por favor contáctame en nuestro enlace oficial de Fiverr.";
-}     
-             
-      // 3. Simulamos un pequeño retraso de medio segundo para que parezca que la IA está pensando
-        const tiempoPensando = Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500;
-await new Promise(resolve => setTimeout(resolve, tiempoPensando));
+            if (
+                mensajeValido.includes("informac") ||
+                mensajeValido.includes("info") ||
+                mensajeValido.includes("precio") ||
+                mensajeValido.includes("costo") ||
+                mensajeValido.includes("cotiza") ||
+                mensajeValido.includes("web") ||
+                mensajeValido.includes("automatiz") ||
+                mensajeValido.includes("dato") ||
+                mensajeValido.includes("archivo") ||
+                mensajeValido.includes("software") ||
+                mensajeValido.includes("script")
+            ) {
+                respuestaAsistente = saludoInicial + "Para darte información detallada sobre precios, automatizaciones y cotizaciones de páginas web o software, puedes visitar nuestro enlace oficial de Fiverr: https://fiverr.com...";
+            } else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok") || mensajeValido.includes("entendido")) {
+                respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr.";
+            } else if (saludoInicial !== "") {
+                respuestaAsistente = saludoInicial;
+            } else {
+                respuestaAsistente = "Para conocer mis servicios de desarrollo de software, automatización o darte una cotización a la medida, por favor contáctame en nuestro enlace oficial de Fiverr.";
+            }
 
-        // 4. Pintamos la respuesta impecable en la pantalla de tu chat
-        indicador.textContent = respuestaAsistente;
-    } catch (error) {
-        indicador.textContent = `⚠️ ${error.message || 'No se pudo conectar con el asistente.'}`;
-        console.error(error);
+            const tiempoPensando = Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500;
+            await new Promise(resolve => setTimeout(resolve, tiempoPensando));
+
+            indicador.textContent = respuestaAsistente;
+        } catch (error) {
+            indicador.textContent = `⚠️ ${error.message || 'No se pudo conectar con el asistente.'}`;
+            console.error(error);
+        }
+        historial.scrollTop = historial.scrollHeight;
     }
-    historial.scrollTop = historial.scrollHeight;
-}
         document.getElementById('entrada').addEventListener('keydown', (event) => {
             if (event.key === 'Enter') enviarMensaje();
         });
@@ -585,4 +581,3 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
-
