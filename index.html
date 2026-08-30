@@ -487,15 +487,9 @@
         const mensajeValido = texto.toLowerCase().trim();
         let respuestaAsistente = "";
 
-// Agrega el mensaje inicial de Lysifix de forma automática al cargar la web
-mostrarEnPantalla("Bot", "¡Bienvenido a Lysifix!");
-
          // 2. El cerebro del bot analiza las palabras clave del cliente
 let saludoInicial = "";
-
-// Si el mensaje incluye un saludo, lo guardamos temporalmente
-if (mensajeValido.includes("hola") || mensajeValido.includes("buen") || mensajeValido.includes("as")) {
-    saludoInicial = "Hola, ¿en qué puedo ayudarte? ";
+respuestaAsistente = data.respuesta;
 }
 
 // Evaluamos si pide información general, cotizaciones o servicios específicos
