@@ -2,6 +2,8 @@ import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 app = FastAPI()
+
+
 def obtener_respuesta_ia(mensaje_usuario):
     # Convertimos el mensaje a minúsculas para que no importen las mayúsculas
     mensaje = mensaje_usuario.lower()
@@ -25,3 +27,11 @@ def obtener_respuesta_ia(mensaje_usuario):
     # 5. Respuesta por defecto si el bot no entiende la pregunta
     else:
         return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. ¿Podrías intentar preguntar de otra forma o consultar nuestra sección de servicios?"
+
+@app.post("/chat")
+async def chat_endpoint(datos: MensajeUsuario):
+    if not datos.mensaje.strip():
+        return {"respuesta": "Disculpa, el mensaje no puede estar vacío."}
+        
+    respuesta_bot = obtener_respuesta_ia(datos.mensaje)
+    return {"respuesta": respuesta_bot}
