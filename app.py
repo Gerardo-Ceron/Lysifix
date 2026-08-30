@@ -1,7 +1,6 @@
 import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -15,19 +14,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 1. FUNCIÓN QUE JALA TU DISEÑO ORIGINAL COMPLETO
+# RUTA PRINCIPAL CON PARÁMETROS SEGUROS
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    ruta_index = os.path.join(os.path.dirname(__file__), "index.html")
-    if os.path.exists(ruta_index):
-        with open(ruta_index, "r", encoding="utf-8") as archivo:
+    if os.path.exists("index.html"):
+        with open("index.html", "r", encoding="utf-8") as archivo:
             return archivo.read()
     return "<h1>Lysifix: Servidor activo, pero no se encontró tu archivo index.html</h1>"
-
-# 2. CONFIGURACIÓN PARA QUE JALEN TUS ESTILOS, IMÁGENES Y JS
-# Esto monta tu carpeta raíz para que FastAPI reconozca tus archivos CSS/JS locales
-if os.path.exists(os.path.dirname(__file__)):
-    app.mount("/", StaticFiles(directory=os.path.dirname(_file_), html=True), name="static")
 
 class MensajeUsuario(BaseModel):
     mensaje: str
