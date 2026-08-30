@@ -30,13 +30,13 @@ class MensajeUsuario(BaseModel):
 def obtener_respuesta_ia(mensaje_usuario: str):
     mensaje = mensaje_usuario.lower()
     if "hola" in mensaje or "buenos" in mensaje or "buenas" in mensaje:
-        return "¡Hola! Bienvenido a Lysifix. Soy tu asistente virtual. ¿En qué te puedo ayudar hoy? 😊"
+        return "¡Hola! Bienvenido a Lysifix. ¿En qué te puedo ayudar hoy? 😊"
     elif "precio" in mensaje or "costo" in mensaje or "cuanto cuesta" in mensaje or "cotizacion" in mensaje:
-        return "Por seguridad y para darte una atención personalizada, manejamos todas nuestras cotizaciones y contrataciones directamente a través de nuestra plataforma oficial."
+        return "Por seguridad y para darte una atención personalizada, manejamos todas nuestras cotizaciones y contrataciones directamente en Fiverr."
     elif "servicios" in mensaje or "que hacen" in mensaje or "desarrollo" in mensaje or "crean" in mensaje:
         return "En Lysifix nos especializamos en Desarrollo Web y Software a la medida. Creamos páginas web, aplicaciones y soluciones digitales profesionales."
     elif "contacto" in mensaje or "telefono" in mensaje or "correo" in mensaje:
-        return "Puedes dejarnos un mensaje en la sección de 'Contacto' de esta página o escribirnos directamente a nuestro correo oficial."
+        return "Puedes dejarnos un mensaje en la sección de 'Contacto' de esta página."
     else:
         return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. ¿Podrías intentar preguntar de otra forma?"
 
