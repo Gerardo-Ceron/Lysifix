@@ -487,10 +487,7 @@
         const mensajeValido = texto.toLowerCase().trim();
         let respuestaAsistente = "";
 
-        // 2. El cerebro del bot analiza las palabras clave del cliente
-let saludoInicial = "";
-
-// 2. El cerebro del bot analiza las palabras clave del cliente
+              // 2. El cerebro del bot analiza las palabras clave del cliente
 let saludoInicial = "";
 
 // Si el mensaje incluye un saludo, lo guardamos temporalmente
@@ -512,21 +509,18 @@ if (
 ) {
     respuestaAsistente = saludoInicial + "Para conocer los precios, automatizaciones y opciones de cotización para páginas web, archivos o desarrollo de software, puedes visitar nuestro enlace oficial de Fiverr: https://es.fiverr.com/users/g...";
 } 
-    
 else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok") || mensajeValido.includes("entendido")) {
     respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr.";
 } 
-    
 else if (saludoInicial !== "") {
     // Si solo saludó y no especificó ningún servicio o precio
     respuestaAsistente = saludoInicial + "¿En qué te puedo ayudar?";
 } 
 else {
-    
     // Si escribió algo que el bot no logra identificar
     respuestaAsistente = "Para conocer mis servicios de desarrollo de software, automatización o darte una cotización a la medida, por favor contáctame en nuestro enlace oficial de Fiverr.";
 }
-        // 3. Simulamos un pequeño retraso de medio segundo para que parezca que la IA está pensando
+      // 3. Simulamos un pequeño retraso de medio segundo para que parezca que la IA está pensando
         const tiempoPensando = Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500;
 await new Promise(resolve => setTimeout(resolve, tiempoPensando));
 
