@@ -488,19 +488,28 @@
         let respuestaAsistente = "";
 
         // 2. El cerebro del bot analiza las palabras clave del cliente
-        if (mensajeValido.includes("hola") || mensajeValido.includes("buen")) {
-            respuestaAsistente = "¡Hola! Bienvenido a Lysifix. ¿En qué te puedo ayudar?";
-        } 
-        else if (mensajeValido.includes("precio") || mensajeValido.includes("costo") || mensajeValido.includes("cuanto") || mensajeValido.includes("contratar")) {
-            respuestaAsistente = "Para conocer los precios, puedes visitar: https://es.fiverr.com/users/gerardo_cg/seller_dashboard";
-        } 
-        else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok")) {
-            respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr para comenzar a trabajar en tu proyecto cuando lo desees. ¡Excelente día!";
-        } 
-        else {
-            respuestaAsistente = "Para conocer mis servicios o darte una cotización, por favor contáctame en Fiverr: https://es.fiverr.com/users/gerardo_cg/seller_dashboard. ¡Ahí te atenderé de inmediato!";
-        }
+let saludoInicial = "";
 
+// Si el mensaje incluye un saludo, lo guardamos temporalmente
+if (mensajeValido.includes("hola") || mensajeValido.includes("buen")) {
+    saludoInicial = "¡Hola! Bienvenido a Lysifix. ";
+}
+
+// Evaluamos las intenciones de negocio
+if (mensajeValido.includes("precio") || mensajeValido.includes("costo") || mensajeValido.includes("cotiza")) {
+    respuestaAsistente = saludoInicial + "Para conocer los precios y opciones de cotización, puedes visitar nuestro enlace oficial de Fiverr: https://es.fiverr.com/users/g...";
+} 
+else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok")) {
+    respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr.";
+} 
+else if (saludoInicial !== "") {
+    // Si solo saludó y no pidió nada más
+    respuestaAsistente = saludoInicial + "¿En qué te puedo ayudar?";
+} 
+else {
+    // Si no saludó ni pidió nada identificable
+    respuestaAsistente = "Para conocer mis servicios o darte una cotización, por favor contáctame directamente a través de nuestro enlace de Fiverr.";
+}
         // 3. Simulamos un pequeño retraso de medio segundo para que parezca que la IA está pensando
         const tiempoPensando = Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500;
 await new Promise(resolve => setTimeout(resolve, tiempoPensando));
