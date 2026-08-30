@@ -33,7 +33,7 @@ def obtener_respuesta_ia(mensaje_usuario: str):
     
     # 1. Almacenar el saludo si viene incluido en el mensaje
     if "hola" in mensaje or "buenos" in mensaje or "buenas" in mensaje or "buen" in mensaje:
-        saludo_inicial = "¡Hola! Bienvenido a Lysifix. ¿En qué te puedo ayudar hoy? 😊\n\n"
+        saludo_inicial = "Hola, ¿en qué puedo ayudarte? 😊\n\n"
         
     # 2. Evaluar intenciones de negocio prioritarias (Precios, Cotizaciones o Servicios Específicos)
     if any(palabra in mensaje for palabra in ["precio", "costo", "cuanto cuesta", "cotizacion", "cotización", "web", "automatiz", "dato", "archivo", "software", "script"]):
