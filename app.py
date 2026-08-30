@@ -22,6 +22,22 @@ async def home():
             return archivo.read()
     return "<h1>Lysifix: Servidor activo, pero no se encontró tu archivo index.html</h1>"
 
+# Reemplaza la función "servir_archivos_locales" por esta versión avanzada:
+@app.get("/{archivo_nombre:path}")
+async def servir_archivos_locales(archivo_nombre: str):
+    # Primero busca en la raíz
+    if os.path.exists(archivo_nombre):
+        return FileResponse(archivo_nombre)
+        
+    # Si no lo encuentra, busca de forma inteligente en subcarpetas comunes
+    carpetas_comunes = ["css", "img", "assets", "public", "images", "js"]
+    for carpeta in carpetas_comunes:
+        ruta_inteligente = os.path.join(carpeta, archivo_nombre)
+        if os.path.exists(ruta_inteligente):
+            return FileResponse(ruta_inteligente)
+            
+    return HTMLResponse(status_code=404)
+
 class MensajeUsuario(BaseModel):
     mensaje: str
 
