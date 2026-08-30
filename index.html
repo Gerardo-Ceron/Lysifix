@@ -482,45 +482,36 @@
             historial.appendChild(indicador);
             historial.scrollTop = historial.scrollHeight;
 
-            try {
-                const apiKey = 'TU_OPENAI_API_KEY_AQUI';
+          try {
+        // 1. Convertimos el mensaje del usuario a minúsculas para leerlo fácil
+        const mensajeValido = texto.toLowerCase().trim();
+        let respuestaAsistente = "";
 
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        model: 'gpt-4o-mini',
-                        messages: [
-                            {
-                                role: 'system',
-                                content: 'Eres el asistente virtual oficial de Lysifix. Habla un español 100% perfecto de México. Da respuestas cortas de menos de 3 líneas. Si quieren contratar, diles amablemente que por seguridad manejamos todo mediante Fiverr y dales tu link oficial.'
-                            },
-                            {
-                                role: 'user',
-                                content: texto
-                            }
-                        ]
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`Error ${response.status}: ${errorText}`);
-                }
-
-                const data = await response.json();
-                const respuesta = data.choices?.[0]?.message?.content?.trim() || 'No pude generar una respuesta.';
-                indicador.textContent = respuesta;
-            } catch (error) {
-                indicador.textContent = `⚠️ ${error.message || 'No se pudo conectar con el asistente.'}`;
-                console.error(error);
-            }
-            historial.scrollTop = historial.scrollHeight;
+        // 2. El cerebro del bot analiza las palabras clave del cliente
+        if (mensajeValido.includes("hola") || mensajeValido.includes("buen")) {
+            respuestaAsistente = "¡Hola! Bienvenido a Lysifix. Soy tu asistente virtual. ¿En qué tipo de proyecto web o desarrollo de software te puedo apoyar hoy?";
+        } 
+        else if (mensajeValido.includes("precio") || mensajeValido.includes("costo") || mensajeValido.includes("cuanto") || mensajeValido.includes("contratar")) {
+            respuestaAsistente = "¡Excelente! Para garantizar tu máxima seguridad, transparencia y protección de tu dinero, manejamos todas nuestras contrataciones y ofertas personalizadas a través de la plataforma global Fiverr. Puedes ver nuestros paquetes oficiales y mandarme un mensaje directo dando clic aquí: https://fiverr.com";
+        } 
+        else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok")) {
+            respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr para comenzar a trabajar en tu proyecto cuando lo desees. ¡Excelente día!";
+        } 
+        else {
+            respuestaAsistente = "Entiendo perfectamente tu solicitud. Para darte una cotización exacta, detalles técnicos o armar una oferta a tu medida de forma 100% segura, por favor contáctame a través de nuestro canal oficial en Fiverr: https://fiverr.com. ¡Ahí te atenderé de inmediato!";
         }
 
+        // 3. Simulamos un pequeño retraso de medio segundo para que parezca que la IA está pensando
+        await new Promise(resolve => setTimeout(resolve, 600));
+
+        // 4. Pintamos la respuesta impecable en la pantalla de tu chat
+        indicador.textContent = respuestaAsistente;
+    } catch (error) {
+        indicador.textContent = `⚠️ ${error.message || 'No se pudo conectar con el asistente.'}`;
+        console.error(error);
+    }
+    historial.scrollTop = historial.scrollHeight;
+}
         document.getElementById('entrada').addEventListener('keydown', (event) => {
             if (event.key === 'Enter') enviarMensaje();
         });
