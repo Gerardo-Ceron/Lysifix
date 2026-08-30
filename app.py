@@ -29,15 +29,28 @@ class MensajeUsuario(BaseModel):
 
 def obtener_respuesta_ia(mensaje_usuario: str):
     mensaje = mensaje_usuario.lower()
-    if "hola" in mensaje or "buenos" in mensaje or "buenas" in mensaje:
-        return "¡Hola! Bienvenido a Lysifix. ¿En qué te puedo ayudar hoy? 😊"
-    elif "precio" in mensaje or "costo" in mensaje or "cuanto cuesta" in mensaje or "cotizacion" in mensaje:
-        return "Por seguridad y para darte una atención personalizada, manejamos todas nuestras cotizaciones y contrataciones directamente en Fiverr."
-    elif "servicios" in mensaje or "que hacen" in mensaje or "desarrollo" in mensaje or "crean" in mensaje:
-        return "En Lysifix nos especializamos en Desarrollo Web y Software a la medida. Creamos páginas web, aplicaciones y soluciones digitales profesionales."
+    saludo_inicial = ""
+    
+    # 1. Almacenar el saludo si viene incluido en el mensaje
+    if "hola" in mensaje or "buenos" in mensaje or "buenas" in mensaje or "buen" in mensaje:
+        saludo_inicial = "¡Hola! Bienvenido a Lysifix. ¿En qué te puedo ayudar hoy? 😊\n\n"
+        
+    # 2. Evaluar intenciones de negocio prioritarias (Precios, Cotizaciones o Servicios Específicos)
+    if any(palabra in mensaje for palabra in ["precio", "costo", "cuanto cuesta", "cotizacion", "cotización", "web", "automatiz", "dato", "archivo", "software", "script"]):
+        return f"{saludo_inicial}Para conocer precios, automatizaciones y cotizaciones de páginas web, archivos o desarrollo de software, puedes visitar nuestro enlace oficial de Fiverr: https://fiverr.com..."
+        
+    elif "servicios" in mensaje or "que hacen" in mensaje or "desarrollo" in mensaje:
+        return f"{saludo_inicial}En Lysifix nos especializamos en Desarrollo Web, automatización de datos y archivos, y Software a la medida. Creamos páginas web, aplicaciones y soluciones eficientes."
+        
     elif "contacto" in mensaje or "telefono" in mensaje or "correo" in mensaje:
-        return "Puedes dejarnos un mensaje en la sección de 'Contacto' de esta página."
+        return f"{saludo_inicial}Puedes dejarnos un mensaje en la sección de 'Contacto' de esta página."
+        
+    elif saludo_inicial != "":
+        # Si el usuario solo dijo "hola" a secas, respondemos el saludo puro
+        return saludo_inicial.strip()
+        
     else:
+        # Respuesta por defecto si no entiende nada de lo anterior
         return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. ¿Podrías intentar preguntar de otra forma?"
 
 @app.post("/chat")
