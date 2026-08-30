@@ -18,7 +18,7 @@ app.add_middleware(
 # 1. FUNCIÓN QUE JALA TU DISEÑO ORIGINAL COMPLETO
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    ruta_index = os.path.join(os.path.dirname(_file_), "index.html")
+    ruta_index = os.path.join(os.path.dirname(__file__), "index.html")
     if os.path.exists(ruta_index):
         with open(ruta_index, "r", encoding="utf-8") as archivo:
             return archivo.read()
@@ -26,7 +26,7 @@ async def home():
 
 # 2. CONFIGURACIÓN PARA QUE JALEN TUS ESTILOS, IMÁGENES Y JS
 # Esto monta tu carpeta raíz para que FastAPI reconozca tus archivos CSS/JS locales
-if os.path.exists(os.path.dirname(_file_)):
+if os.path.exists(os.path.dirname(__file__)):
     app.mount("/", StaticFiles(directory=os.path.dirname(_file_), html=True), name="static")
 
 class MensajeUsuario(BaseModel):
