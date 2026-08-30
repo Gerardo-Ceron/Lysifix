@@ -565,3 +565,42 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
+
+async function enviarMensaje() {
+    const inputEntrada = document.getElementById("entrada");
+    const historial = document.getElementById("historial");
+    const textoUsuario = inputEntrada.value.trim();
+
+    if (textoUsuario === "") return;
+
+    // Pintamos el mensaje del usuario en la pantalla
+    historial.innerHTML += <div class="mensaje usuario" style="padding: 8px; margin: 5px 0; background: #e0e0e0; align-self: flex-end; border-radius: 8px; max-width: 80%;">${textoUsuario}</div>;
+    inputEntrada.value = ""; 
+
+    try {
+        // Hacemos la llamada a tu servidor de Python
+        const respuesta = await fetch("https://lysifix.dev", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "mensaje": textoUsuario
+            })
+        });
+
+        const datos = await respuesta.json();
+        
+        // Pintamos la respuesta del bot que viene desde Python
+        historial.innerHTML += <div class="mensaje bot" style="padding: 8px; margin: 5px 0; background: #1a73e8; color: white; align-self: flex-start; border-radius: 8px; max-width: 80%;">${datos.respuesta}</div>;
+        
+        historial.scrollTop = historial.scrollHeight;
+
+    } catch (error) {
+        console.error("Error al conectar con el servidor:", error);
+        historial.innerHTML += <div class="mensaje bot" style="padding: 8px; margin: 5px 0; background: #ffcdd2; color: #b71c1c; align-self: flex-start; border-radius: 8px;">Error al conectar con el asistente.</div>;
+    }
+}
+</script>
+</body>
+</html>
