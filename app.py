@@ -1,5 +1,7 @@
+import os
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse # <-- AGREGA ESTA NUEVA IMPORTACIÓN
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles # <-- IMPORTANTE
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -13,17 +15,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ==========================================
-# 1. RUTA NUEVA: Muestra tu página web al inicio
-# ==========================================
+# RUTA PRINCIPAL CORREGIDA
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    try:
-        # Lee tu archivo index.html automáticamente desde la raíz
-        with open("index.html", "r", encoding="utf-8") as archivo:
+    # Busca el archivo index.html en la raíz de tu proyecto
+    ruta_index = os.path.join(os.path.dirname(_file_), "index.html")
+    if os.path.exists(ruta_index):
+        with open(ruta_index, "r", encoding="utf-8") as archivo:
             return archivo.read()
-    except Exception as e:
-        return "<h1>Error: No se encontró el archivo index.html en el servidor</h1>"
+    return "<h1>Lysifix: Servidor activo, pero no se encontró el archivo index.html</h1>"
+
+# ... (Todo tu código de abajo de MensajeUsuario y obtener_respuesta_ia se queda igual)
 
 # ==========================================
 # Todo lo demás de tu código lo dejas IGUAL abajo:
