@@ -1,22 +1,38 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware # <-- NUEVA IMPORTACIÓN
+from fastapi.responses import HTMLResponse # <-- AGREGA ESTA NUEVA IMPORTACIÓN
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 app = FastAPI()
 
-# <-- NUEVO BLOQUE DE CONFIGURACIÓN CORS:
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Permite que tu página web se conecte desde cualquier lado
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"], # Permite usar POST, GET, etc.
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ==========================================
+# 1. RUTA NUEVA: Muestra tu página web al inicio
+# ==========================================
+@app.get("/", response_class=HTMLResponse)
+async def home():
+    try:
+        # Lee tu archivo index.html automáticamente desde la raíz
+        with open("index.html", "r", encoding="utf-8") as archivo:
+            return archivo.read()
+    except Exception as e:
+        return "<h1>Error: No se encontró el archivo index.html en el servidor</h1>"
 
+# ==========================================
+# Todo lo demás de tu código lo dejas IGUAL abajo:
+# ==========================================
 class MensajeUsuario(BaseModel):
     mensaje: str
 
+def obtener_respuesta_ia(mensaje_usuario: str):
+    # ... (aquí van tus IF/ELIF del bot, déjalos como están)
 def obtener_respuesta_ia(mensaje_usuario: str):
     mensaje = mensaje_usuario.lower()
     
