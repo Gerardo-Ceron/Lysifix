@@ -483,41 +483,7 @@
             historial.scrollTop = historial.scrollHeight;
 
         try {
-            const mensajeValido = texto.toLowerCase().trim();
-            let saludoInicial = "";
-            let respuestaAsistente = "";
-
-            if (
-                mensajeValido.includes("hola") ||
-                mensajeValido.includes("buenas") ||
-                mensajeValido.includes("buenos") ||
-                mensajeValido.includes("saludos")
-            ) {
-                saludoInicial = "¡Hola! ";
-            }
-
-            if (
-                mensajeValido.includes("informac") ||
-                mensajeValido.includes("info") ||
-                mensajeValido.includes("precio") ||
-                mensajeValido.includes("costo") ||
-                mensajeValido.includes("cotiza") ||
-                mensajeValido.includes("web") ||
-                mensajeValido.includes("automatiz") ||
-                mensajeValido.includes("dato") ||
-                mensajeValido.includes("archivo") ||
-                mensajeValido.includes("software") ||
-                mensajeValido.includes("script")
-            ) {
-                respuestaAsistente = saludoInicial + "Para darte información detallada sobre precios, automatizaciones y cotizaciones de páginas web o software, puedes visitar nuestro enlace oficial de Fiverr: https://fiverr.com...";
-            } else if (mensajeValido.includes("gracias") || mensajeValido.includes("ok") || mensajeValido.includes("entendido")) {
-                respuestaAsistente = "¡De nada! Quedo a tus órdenes en nuestro enlace oficial de Fiverr.";
-            } else if (saludoInicial !== "") {
-                respuestaAsistente = saludoInicial;
-            } else {
-                respuestaAsistente = "Para conocer mis servicios de desarrollo de software, automatización o darte una cotización a la medida, por favor contáctame en nuestro enlace oficial de Fiverr.";
-            }
-
+            const respuestaAsistente = obtenerRespuestaAsistente(texto);
             const tiempoPensando = Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500;
             await new Promise(resolve => setTimeout(resolve, tiempoPensando));
 
@@ -528,7 +494,104 @@
         }
         historial.scrollTop = historial.scrollHeight;
     }
-        document.getElementById('entrada').addEventListener('keydown', (event) => {
+
+    function obtenerRespuestaAsistente(mensajeUsuario) {
+        const mensaje = mensajeUsuario.toLowerCase().trim();
+        let saludoInicial = "";
+
+        if (
+            mensaje.includes("hola") ||
+            mensaje.includes("buenas") ||
+            mensaje.includes("buenos") ||
+            mensaje.includes("saludos")
+        ) {
+            saludoInicial = "¡Hola! ";
+        }
+
+        if (
+            mensaje.includes("tiempo") ||
+            mensaje.includes("tardan") ||
+            mensaje.includes("tarda") ||
+            mensaje.includes("plazo") ||
+            mensaje.includes("entrega") ||
+            mensaje.includes("cuanto dias") ||
+            mensaje.includes("cuántos días") ||
+            mensaje.includes("cuando lo tienen") ||
+            mensaje.includes("cuándo lo tienen")
+        ) {
+            return `${saludoInicial}Los tiempos de entrega varían según la complejidad de cada solución. En nuestra plataforma oficial de Fiverr podrá visualizar los plazos estimados para cada tipo de proyecto o servicio. Puede consultarlos directamente aquí: https://es.fiverr.com/users/g...`;
+        }
+
+        if (
+            mensaje.includes("no manejan") ||
+            mensaje.includes("no maneja") ||
+            mensaje.includes("no vi") ||
+            mensaje.includes("no aparece") ||
+            mensaje.includes("pueden usar") ||
+            mensaje.includes("puedes usar") ||
+            mensaje.includes("programa") ||
+            mensaje.includes("herramienta")
+        ) {
+            return `${saludoInicial}Si requiere un desarrollo con un software o requerimiento muy específico que no visualiza en nuestro perfil, no se preocupe. Escríbanos directamente a través de la plataforma de Fiverr compartiendo los detalles de su proyecto y con gusto evaluaremos una solución a su medida.`;
+        }
+
+        if (
+            mensaje.includes("pago") ||
+            mensaje.includes("pagar") ||
+            mensaje.includes("deposito") ||
+            mensaje.includes("depósito") ||
+            mensaje.includes("cuenta") ||
+            mensaje.includes("transferencia") ||
+            mensaje.includes("donde deposito")
+        ) {
+            return `${saludoInicial}Para mayor seguridad y respaldo de ambas partes, todo trámite, gestión y pago se realiza exclusivamente a través de la plataforma oficial de Fiverr. Puede continuar con su proceso de forma segura en el siguiente enlace: https://es.fiverr.com/users/g...`;
+        }
+
+        if (
+            mensaje.includes("proyectos") ||
+            mensaje.includes("proyecto") ||
+            mensaje.includes("que manejan") ||
+            mensaje.includes("que tipo") ||
+            mensaje.includes("alcance") ||
+            mensaje.includes("tamaño")
+        ) {
+            return `${saludoInicial}En Lysifix nos adaptamos por completo a tus necesidades. Desarrollamos cualquier tipo de proyecto, desde soluciones compactas y automatizaciones específicas hasta sistemas a gran escala. Platícanos tu idea y la diseñamos a tu medida.`;
+        }
+
+        if (
+            mensaje.includes("precio") ||
+            mensaje.includes("costo") ||
+            mensaje.includes("cuanto cuesta") ||
+            mensaje.includes("cotizacion") ||
+            mensaje.includes("cotización") ||
+            mensaje.includes("web") ||
+            mensaje.includes("automatiz") ||
+            mensaje.includes("dato") ||
+            mensaje.includes("archivo") ||
+            mensaje.includes("software") ||
+            mensaje.includes("script") ||
+            mensaje.includes("informac") ||
+            mensaje.includes("info")
+        ) {
+            return `${saludoInicial}Para conocer precios, automatizaciones y opciones de cotización a la medida para páginas web, gestión de archivos o desarrollo de software, puedes visitar nuestro enlace oficial de Fiverr: https://es.fiverr.com/users/g...`;
+        }
+
+        if (mensaje.includes("servicios") || mensaje.includes("que hacen") || mensaje.includes("desarrollo")) {
+            return `${saludoInicial}En Lysifix nos especializamos en Desarrollo Web, automatización de datos y archivos, y Software a la medida.`;
+        }
+
+        if (mensaje.includes("contacto") || mensaje.includes("telefono") || mensaje.includes("correo")) {
+            return `${saludoInicial}Puedes dejarnos un mensaje en la sección de 'Contacto' de esta página.`;
+        }
+
+        if (saludoInicial !== "") {
+            return saludoInicial.trim();
+        }
+
+        return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. ¿Podrías intentar preguntar de otra forma o detallar más tu solicitud?";
+    }
+
+    document.getElementById('entrada').addEventListener('keydown', (event) => {
             if (event.key === 'Enter') enviarMensaje();
         });
 
