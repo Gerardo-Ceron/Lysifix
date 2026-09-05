@@ -58,7 +58,7 @@
     #historial .mensaje { 
         padding: 12px 12px !important; 
         border-radius: 10px !important; 
-        max-width: 50% !important; 
+        max-width: 85% !important; 
         font-size: 12px !important; 
         margin-bottom: 5px !important;
     }
@@ -72,6 +72,18 @@
         color: black !important; 
         align-self: flex-start !important; 
     }
+        #historial .bot a {
+    display: inline-block !important;
+    margin-top: 8px !important;
+    padding: 6px 12px !important;
+    background-color: #1dbf73 !important; /* Verde oficial de Fiverr */
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 4px !important;
+    font-weight: bold !important;
+    white-space: nowrap !important; /* Evita que el texto del botón se rompa */
+    text-align: center !important;
+}
     #chat-input-area { 
         display: flex !important; 
         border-top: 1px solid #ccc !important; 
@@ -496,10 +508,17 @@
             const historial = document.getElementById('historial');
             const texto = input.value.trim();
             if (!texto) return;
-
+// Guardia de seguridad: Detecta patrones sospechosos
+    const patronPeligroso = /<script.*?>|javascript:|onerror=|onload=/i;
+    if (patronPeligroso.test(texto)) {
+        console.warn("¡Intento de ataque detectado en el chat!");
+        alert("Acción bloqueada: No se permite código HTML en el chat.");
+        input.value = '';
+        return; // Esto detiene la función por completo antes de crear el mensaje
+    }
             const mensajeUsuario = document.createElement('div');
             mensajeUsuario.className = 'mensaje usuario';
-            mensajeUsuario.innerHTML = texto;
+            mensajeUsuario.textContent = texto;
             historial.appendChild(mensajeUsuario);
             input.value = '';
 
