@@ -43,7 +43,7 @@
         border-radius: 10px !important; 
         max-width: 50% !important; 
         font-size: 12px !important; 
-        margin-bottom: 3px !important;
+        margin-bottom: 5px !important;
     }
     #historial .usuario { 
         background: #6c5b14 !important; 
@@ -77,8 +77,9 @@
     }
 </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Lysifix - Portafolio de desarrollo web y proyectos digitales modernos.">
-    <title>Lysifix | Desarrollo web y software</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Automatiza los procesos de tu negocio. En Lysifix creamos software a la medida, sistemas de inventario y diseño web profesional en Querétaro.">
+    <title>Lysifix | Desarrollo de Software a la Medida y Diseño Web en Querétaro</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
@@ -600,6 +601,187 @@
         return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. ¿Podrías intentar preguntar de otra forma o detallar más tu solicitud?";
     }
 
+   function obtenerRespuestaAsistente(mensajeUsuario) {
+    const mensaje = mensajeUsuario.toLowerCase().trim();
+    let saludoInicial = "";
+
+    // 1. GESTIÓN DE SALUDO
+    if (
+        mensaje.includes("hola") ||
+        mensaje.includes("buenas") ||
+        mensaje.includes("buenos") ||
+        mensaje.includes("saludos")
+    ) {
+        saludoInicial = "¡Hola! ";
+    }
+
+    // 2. PLAZOS Y TIEMPOS DE ENTREGA
+    if (
+        mensaje.includes("tiempo") ||
+        mensaje.includes("tardan") ||
+        mensaje.includes("tarda") ||
+        mensaje.includes("plazo") ||
+        mensaje.includes("entrega") ||
+        mensaje.includes("cuanto dias") ||
+        mensaje.includes("cuántos días") ||
+        mensaje.includes("cuando lo tienen") ||
+        mensaje.includes("cuándo lo tienen")
+    ) {
+        return `${saludoInicial}Los tiempos de entrega varían según la complejidad de cada solución. En nuestra plataforma oficial de Fiverr podrá visualizar los plazos estimados para cada tipo de proyecto o servicio. Puede consultarlos directamente aquí: https://fiverr.com...`;
+    }
+
+    // 3. REQUERIMIENTOS ESPECIALES / HERRAMIENTAS NO VISIBLES
+    if (
+        mensaje.includes("no manejan") ||
+        mensaje.includes("no maneja") ||
+        mensaje.includes("no vi") ||
+        mensaje.includes("no aparece") ||
+        mensaje.includes("pueden usar") ||
+        mensaje.includes("puedes usar") ||
+        mensaje.includes("programa") ||
+        mensaje.includes("herramienta")
+    ) {
+        return `${saludoInicial}Si requiere un desarrollo con un software o requerimiento muy específico que no visualiza en nuestro perfil, no se preocupe. Escríbanos directamente a través de la plataforma de Fiverr compartiendo los detalles de su proyecto y con gusto evaluaremos una solución a su medida.`;
+    }
+
+    // 4. MÉTODOS DE PAGO Y FACTURACIÓN
+    if (
+        mensaje.includes("pago") ||
+        mensaje.includes("pagar") ||
+        mensaje.includes("deposito") ||
+        mensaje.includes("depósito") ||
+        mensaje.includes("cuenta") ||
+        mensaje.includes("transferencia") ||
+        mensaje.includes("donde deposito")
+    ) {
+        return `${saludoInicial}Para mayor seguridad y respaldo de ambas partes, todo trámite, gestión y pago se realiza exclusivamente a través de la plataforma oficial de Fiverr. Puede continuar con su proceso de forma segura en el siguiente enlace: https://fiverr.com.`;
+    }
+
+    // 5. PRECIOS, COSTOS Y COTIZACIONES
+    if (
+        mensaje.includes("precio") ||
+        mensaje.includes("costo") ||
+        mensaje.includes("cuanto cuesta") ||
+        mensaje.includes("cuánto cuesta") ||
+        mensaje.includes("cotizacion") ||
+        mensaje.includes("cotización") ||
+        mensaje.includes("valor")
+    ) {
+        return `${saludoInicial}Para conocer precios, automatizaciones y opciones de cotización a la medida para páginas web, gestión de archivos o desarrollo de software, puedes visitar nuestro enlace oficial de Fiverr: https://fiverr.com.`;
+    }
+
+    // 6. GARANTÍAS, ERRORES Y SOPORTE POST-ENTREGA
+    if (
+        mensaje.includes("garantia") ||
+        mensaje.includes("garantía") ||
+        mensaje.includes("falla") ||
+        mensaje.includes("error") ||
+        mensaje.includes("soporte") ||
+        mensaje.includes("mantenimiento") ||
+        mensaje.includes("si no funciona")
+    ) {
+        return `${saludoInicial}Todos nuestros desarrollos incluyen un periodo de garantía y soporte post-entrega a través de Fiverr para corregir cualquier fallo o bug sin costo adicional, asegurando que todo funcione a la perfección.`;
+    }
+
+    // 7. CONFIDENCIALIDAD / SEGURIDAD DE DATOS
+    if (
+        mensaje.includes("seguro") ||
+        mensaje.includes("seguridad") ||
+        mensaje.includes("privacidad") ||
+        mensaje.includes("confidencial") ||
+        mensaje.includes("mis datos") ||
+        mensaje.includes("mi informacion") ||
+        mensaje.includes("mi información")
+    ) {
+        return `${saludoInicial}La confidencialidad es nuestra prioridad. Toda la información, archivos o credenciales que compartas para el desarrollo de tus automatizaciones se manejan bajo estricta privacidad y solo se usan para los fines del proyecto.`;
+    }
+
+    // 8. TIPOS DE PROYECTOS Y ALCANCE
+    if (
+        mensaje.includes("proyectos") ||
+        mensaje.includes("proyecto") ||
+        mensaje.includes("que manejan") ||
+        mensaje.includes("que tipo") ||
+        mensaje.includes("alcance") ||
+        mensaje.includes("tamaño")
+    ) {
+        return `${saludoInicial}En Lysifix nos adaptamos por completo a tus necesidades. Desarrollamos cualquier tipo de proyecto, desde soluciones compactas y automatizaciones específicas hasta sistemas a gran escala. Platícanos tu idea y la diseñamos a tu medida.`;
+    }
+
+    // 9. METODOLOGÍA DE TRABAJO / AVANCES
+    if (
+        mensaje.includes("como trabajan") ||
+        mensaje.includes("cómo trabajan") ||
+        mensaje.includes("proceso") ||
+        mensaje.includes("metodologia") ||
+        mensaje.includes("metodología") ||
+        mensaje.includes("avances") ||
+        mensaje.includes("revision") ||
+        mensaje.includes("revisión")
+    ) {
+        return `${saludoInicial}Nuestro proceso es transparente: definimos el alcance en Fiverr, estructuramos hitos de entrega y realizamos revisiones constantes contigo para asegurarnos de que el software o automatización cumpla exactamente con lo que necesitas.`;
+    }
+
+    // 10. TECNOLOGÍAS, LENGUAJES Y PORTAFOLIO
+    if (
+        mensaje.includes("lenguaje") ||
+        mensaje.includes("tecnologia") ||
+        mensaje.includes("tecnología") ||
+        mensaje.includes("python") ||
+        mensaje.includes("javascript") ||
+        mensaje.includes("excel") ||
+        mensaje.includes("portafolio") ||
+        mensaje.includes("ejemplo")
+    ) {
+        return `${saludoInicial}Trabajamos con tecnologías modernas (como Python, JavaScript, Node.js, integraciones de Excel, APIs y bases de datos) según lo requiera tu proyecto. Puedes ver ejemplos de nuestros trabajos anteriores directamente en nuestro perfil de Fiverr.`;
+    }
+
+    // 11. QUÉ SERVICIOS OFRECEN (General)
+    if (
+        mensaje.includes("servicios") || 
+        mensaje.includes("trabajos") || 
+        mensaje.includes("realizan") || 
+        mensaje.includes("hacen") ||
+        mensaje.includes("software") || 
+        mensaje.includes("desarrollo") ||
+        mensaje.includes("web") ||
+        mensaje.includes("automatiz") ||
+        mensaje.includes("dato") ||
+        mensaje.includes("archivo") ||
+        mensaje.includes("script")
+    ) {
+        return `${saludoInicial}En Lysifix nos especializamos en Desarrollo Web, automatización de datos y archivos, y Software a la medida.`;
+    }
+
+    // 12. DATOS DE CONTACTO DIRECTO
+    if (
+        mensaje.includes("contacto") || 
+        mensaje.includes("contactar") || 
+        mensaje.includes("telefono") || 
+        mensaje.includes("teléfono") || 
+        mensaje.includes("contrato") || 
+        mensaje.includes("contratar") ||
+        mensaje.includes("comunico") || 
+        mensaje.includes("comunicar") ||
+        mensaje.includes("correo") ||
+        mensaje.includes("email") ||
+        mensaje.includes("mensaje") ||
+        mensaje.includes("mensajear") || 
+        mensaje.includes("informac") || 
+        mensaje.includes("info")
+    ) {
+        return `${saludoInicial}Para brindarte una atención personalizada y segura, gestiono todos mis proyectos a través de Fiverr. Puedes ver mis servicios y escribire directamente haciendo clic en este enlace https://es.fiverr.com/users/gerardo_cg/seller_dashboard. ¡Será un gusto trabajar contigo!`;
+    }
+
+    // 13. SOLO SALUDO (Si no detectó ninguna pregunta anterior)
+    if (saludoInicial !== "") {
+        return saludoInicial.trim();
+    }
+
+    // 14. RESPUESTA POR DEFECTO
+    return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. ¿Podrías intentar preguntar de otra forma o detallar más tu solicitud?";
+}
+
     document.getElementById('entrada').addEventListener('keydown', (event) => {
             if (event.key === 'Enter') enviarMensaje();
         });
@@ -630,7 +812,7 @@
 
     <!-- Botón flotante -->
 <button id="boton-chat-flotante" style="position: fixed; bottom: 20px; right: 20px; background-color: #6c5b14; color: white; border: none; padding: 12px 18px; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 9999;">
-    💬 Chatear
+    💬 Chat
 </button>
 
 <!-- Interruptor del chat -->
