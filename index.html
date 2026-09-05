@@ -514,7 +514,7 @@
             const tiempoPensando = Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500;
             await new Promise(resolve => setTimeout(resolve, tiempoPensando));
 
-            indicador.textContent = respuestaAsistente;
+            indicador.innerHTML = respuestaAsistente;
         } catch (error) {
             indicador.innerHTML = `⚠️ ${error.message || 'No se pudo conectar con el asistente.'}`;
             console.error(error);
