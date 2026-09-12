@@ -25,7 +25,60 @@
     }
     </script>
     <style>
-        
+    .terminal-window {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-family: 'Courier New', Courier, monospace;
+    margin: 15px auto;
+    max-width: 90%;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+.terminal-header {
+    background-color: #323232;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+.terminal-title {
+    color: #aaa;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+.terminal-body {
+    padding: 12px;
+    color: #00ff00; /* Verde clásico de consola */
+    font-size: 13px;
+    text-align: left;
+    min-height: 40px;
+    line-height: 1.4;
+}
+
+/* Efecto de parpadeo para el cursor */
+.cursor {
+    animation: blink 1s infinite;
+    color: #00ff00;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}    
     /* Estilos blindados para que no choquen con estilos.css */
     #chat-contenedor {
         position: relative !important;
