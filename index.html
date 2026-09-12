@@ -24,7 +24,36 @@
   "priceRange": "$$"
 }
 </script>
-    <style>
+<style>
+.clock-widget-wrapper {
+    max-width: 260px;
+    margin: 0 auto 1rem;
+    padding: 0.5rem 0.5rem 0;
+    text-align: center;
+}
+.clock-widget-title {
+    margin: 0 0 0.35rem;
+    line-height: 1.2;
+}
+.clock-widget-title a {
+    display: inline-block;
+    color: #4a4a4a;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+.clock-widget-title span {
+    color: gray;
+}
+.clock-widget-iframe {
+    display: block;
+    width: 100%;
+    max-width: 240px;
+    height: 82px;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
     /* Estilos blindados para que no choquen con estilos.css */
     #chat-contenedor {
         position: relative !important;
