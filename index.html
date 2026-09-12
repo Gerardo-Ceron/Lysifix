@@ -25,35 +25,7 @@
     }
     </script>
     <style>
-    .clock-widget-wrapper {
-        max-width: 260px;
-        margin: 0 auto 1rem;
-        padding: 0.5rem 0.5rem 0;
-        text-align: center;
-    }
-    .clock-widget-title {
-        margin: 0 0 0.35rem;
-        line-height: 1.2;
-    }
-    .clock-widget-title a {
-        display: inline-block;
-        color: #4a4a4a;
-        text-decoration: none;
-        font-size: 0.95rem;
-    }
-    .clock-widget-title span {
-        color: gray;
-    }
-    .clock-widget-iframe {
-        display: block;
-        width: 100%;
-        max-width: 240px;
-        height: 82px;
-        margin: 0 auto;
-        border: 0;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
+        
     /* Estilos blindados para que no choquen con estilos.css */
     #chat-contenedor {
         position: relative !important;
@@ -153,10 +125,17 @@
 </head>
     <meta name="msvalidate.01" content="EC30F42CCB7F433EA8A0C539E01DF53E" />
 <body>
-    
-    <div class="clock-widget-wrapper">
-        <iframe class="clock-widget-iframe" src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=small&timezone=America%2FMexico_City" frameborder="0" seamless></iframe>
+    <div class="terminal-window">
+    <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">lysifix_bot.py</span>
     </div>
+    <div class="terminal-body">
+        <span id="terminal-text"></span><span class="cursor">|</span>
+    </div>
+</div>
     <div class="site-shell">
         <header class="site-header">
             <div class="brand">
@@ -924,6 +903,46 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+    const textLines = [
+    "> python -m lysifix_bot --run",
+    "🤖 Loading automation scripts...",
+    "🔍 Scraping data... Done.",
+    "🚀 Status: Online & Ready."
+];
+
+let lineIndex = 0;
+let charIndex = 0;
+const textElement = document.getElementById("terminal-text");
+
+function typeTerminal() {
+    if (lineIndex < textLines.length) {
+        let currentLine = textLines[lineIndex];
+        
+        if (charIndex < currentLine.length) {
+            // Escribir carácter por carácter
+            textElement.innerHTML += currentLine.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeTerminal, 50); // Velocidad de escritura (50ms)
+        } else {
+            // Agregar un salto de línea al terminar la frase
+            textElement.innerHTML += "<br>";
+            lineIndex++;
+            charIndex = 0;
+            setTimeout(typeTerminal, 800); // Pausa entre líneas (800ms)
+        }
+    } else {
+        // Bucle infinito: Limpia la terminal y reinicia después de 3 segundos
+        setTimeout(() => {
+            textElement.innerHTML = "";
+            lineIndex = 0;
+            charIndex = 0;
+            typeTerminal();
+        }, 3000);
+    }
+}
+
+// Iniciar la animación cuando cargue la página
+document.addEventListener("DOMContentLoaded", typeTerminal);
 </script>
 </body>
 </html>
