@@ -690,7 +690,7 @@
             mensaje.includes("cuando lo tienen") ||
             mensaje.includes("cuándo lo tienen")
         ) {
-            return `${saludoInicial}Los tiempos de entrega varían según la complejidad de cada solución. En nuestra plataforma oficial de Fiverr podrá visualizar los plazos estimados para cada tipo de proyecto o servicio. Puede consultarlos directamente aquí: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>.`;
+            return `${saludoInicial}Los plazos de entrega varían según la complejidad del proyecto (de 1 a 7 días). Puedes revisar los tiempos exactos de cada paquete en mi perfil de Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
         }
 
         if (
@@ -703,7 +703,7 @@
             mensaje.includes("programa") ||
             mensaje.includes("herramienta")
         ) {
-            return `${saludoInicial}Si requiere un desarrollo con un software o requerimiento muy específico que no visualiza en nuestro perfil, no se preocupe. Escríbanos directamente a través de la plataforma de Fiverr compartiendo los detalles de su proyecto y con gusto evaluaremos una solución a su medida.`;
+            return `${saludoInicial}Si necesitas una herramienta, lenguaje o integración que no ves en la página, escribeme un mensaje privado en Fiverr para diseñar una solución  personalizada: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
         }
 
         if (
@@ -715,7 +715,7 @@
             mensaje.includes("transferencia") ||
             mensaje.includes("donde deposito")
         ) {
-            return `${saludoInicial}Para mayor seguridad y respaldo de ambas partes, todo trámite, gestión y pago se realiza exclusivamente a través de la plataforma oficial de Fiverr. Puede continuar con su proceso de forma segura en el siguiente enlace: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>.`;
+            return `${saludoInicial}Para tu total seguridad  y respaldo ante fraudes, todas las transacciones y pagos se gestionan exclusivamente a través de mi perfil de Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
         }
 
         if (
@@ -726,15 +726,10 @@
             mensaje.includes("alcance") ||
             mensaje.includes("tamaño")
         ) {
-            return `${saludoInicial}En Lysifix nos adaptamos por completo a tus necesidades. Desarrollamos cualquier tipo de proyecto, desde soluciones compactas y automatizaciones específicas hasta sistemas a gran escala. Platícanos tu idea y la diseñamos a tu medida.`;
+            return `${saludoInicial}Desarrollo desde scripts  automatizados sencillos hasta aplicaciones web completas. Puedes explorar el catálogo de proyectos  y alcance en mi perfil de Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
         }
 
         if (
-            mensaje.includes("precio") ||
-            mensaje.includes("costo") ||
-            mensaje.includes("cuanto cuesta") ||
-            mensaje.includes("cotizacion") ||
-            mensaje.includes("cotización") ||
             mensaje.includes("web") ||
             mensaje.includes("automatiz") ||
             mensaje.includes("dato") ||
@@ -744,81 +739,8 @@
             mensaje.includes("informac") ||
             mensaje.includes("info")
         ) {
-            return `${saludoInicial}Para conocer precios, automatizaciones y opciones de cotización a la medida para páginas web, gestión de archivos o desarrollo de software, puedes visitar nuestro enlace oficial de Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>.`;
-        }
+            return `${saludoInicial}Desarrollo scripts de automatización, manejo de datos y software a medida. Puedes ver todos los detalles y cotizar tu proyecto directamente aquí: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
 
-        if (mensaje.includes("servicios") || mensaje.includes("trabajos")|| mensaje.includes("realizan") || mensaje.includes("manejan") || mensaje.includes("software") || mensaje.includes("desarrollo")) {
-            return `${saludoInicial}En Lysifix nos especializamos en Desarrollo Web, automatización de datos y archivos, y Software a la medida.`;
-        }
-
-        if (mensaje.includes("contacto") || mensaje.includes("telefono") || mensaje.includes("correo")) {
-            return `${saludoInicial}Puedes dejarnos un mensaje en la sección de 'Contacto' de esta página.`;
-        }
-
-        if (saludoInicial !== "") {
-            return saludoInicial.trim();
-        }
-
-        return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. ¿Podrías intentar preguntar de otra forma o detallar más tu solicitud?";
-    }
-
-   function obtenerRespuestaAsistente(mensajeUsuario) {
-    const mensaje = mensajeUsuario.toLowerCase().trim();
-    let saludoInicial = "";
-
-    // 1. GESTIÓN DE SALUDO
-    if (
-        mensaje.includes("hola") ||
-        mensaje.includes("buenas") ||
-        mensaje.includes("buenos") ||
-        mensaje.includes("saludos")
-    ) {
-        saludoInicial = "¡Hola! ";
-    }
-
-    // 2. PLAZOS Y TIEMPOS DE ENTREGA
-    if (
-        mensaje.includes("tiempo") ||
-        mensaje.includes("tardan") ||
-        mensaje.includes("tarda") ||
-        mensaje.includes("plazo") ||
-        mensaje.includes("entrega") ||
-        mensaje.includes("cuanto dias") ||
-        mensaje.includes("cuántos días") ||
-        mensaje.includes("cuando lo tienen") ||
-        mensaje.includes("cuándo lo tienen")
-    ) {
-        return `${saludoInicial}Los tiempos de entrega varían según la complejidad de cada solución. En nuestra plataforma oficial de Fiverr podrá visualizar los plazos estimados para cada tipo de proyecto o servicio. Puede consultarlos directamente aquí: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>.`;
-    }
-
-    // 3. REQUERIMIENTOS ESPECIALES / HERRAMIENTAS NO VISIBLES
-    if (
-        mensaje.includes("no manejan") ||
-        mensaje.includes("no maneja") ||
-        mensaje.includes("no vi") ||
-        mensaje.includes("no aparece") ||
-        mensaje.includes("pueden usar") ||
-        mensaje.includes("puedes usar") ||
-        mensaje.includes("programa") ||
-        mensaje.includes("herramienta")
-    ) {
-        return `${saludoInicial}Si requiere un desarrollo con un software o requerimiento muy específico que no visualiza en nuestro perfil, no se preocupe. Escríbanos directamente a través de la plataforma de Fiverr compartiendo los detalles de su proyecto y con gusto evaluaremos una solución a su medida.`;
-    }
-
-    // 4. MÉTODOS DE PAGO Y FACTURACIÓN
-    if (
-        mensaje.includes("pago") ||
-        mensaje.includes("pagar") ||
-        mensaje.includes("deposito") ||
-        mensaje.includes("depósito") ||
-        mensaje.includes("cuenta") ||
-        mensaje.includes("transferencia") ||
-        mensaje.includes("donde deposito")
-    ) {
-        return `${saludoInicial}Para mayor seguridad y respaldo de ambas partes, todo trámite, gestión y pago se realiza exclusivamente a través de la plataforma oficial de Fiverr. Puede continuar con su proceso de forma segura en el siguiente enlace: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>.`;
-    }
-
-    // 5. PRECIOS, COSTOS Y COTIZACIONES
     if (
         mensaje.includes("precio") ||
         mensaje.includes("costo") ||
@@ -828,10 +750,10 @@
         mensaje.includes("cotización") ||
         mensaje.includes("valor")
     ) {
-        return `${saludoInicial}Para conocer precios, automatizaciones y opciones de cotización a la medida para páginas web, gestión de archivos o desarrollo de software, puedes visitar el enlace oficial de Fiverr:  <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>.`;
+        return `${saludoInicial}Para conocer precios, automatizaciones y opciones de cotización a la medida para tu negocio, te invito a visitar mi perfil oficial en Fiverr:  <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
     }
 
-    // 6. GARANTÍAS, ERRORES Y SOPORTE POST-ENTREGA
+            
     if (
         mensaje.includes("garantia") ||
         mensaje.includes("garantía") ||
@@ -841,10 +763,10 @@
         mensaje.includes("mantenimiento") ||
         mensaje.includes("si no funciona")
     ) {
-        return `${saludoInicial}Todos nuestros desarrollos incluyen un periodo de garantía y soporte post-entrega a través de Fiverr para corregir cualquier fallo o bug sin costo adicional, asegurando que todo funcione a la perfección.`;
+        return `${saludoInicial}Todos mis desarrollos cuentan con soporte y garantía ante fallas. Para gestionar cualquier revisión de forma segura, contáctame en Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a> `;
     }
 
-    // 7. CONFIDENCIALIDAD / SEGURIDAD DE DATOS
+   
     if (
         mensaje.includes("seguro") ||
         mensaje.includes("seguridad") ||
@@ -854,22 +776,10 @@
         mensaje.includes("mi informacion") ||
         mensaje.includes("mi información")
     ) {
-        return `${saludoInicial}La confidencialidad es nuestra prioridad. Toda la información, archivos o credenciales que compartas para el desarrollo de tus automatizaciones se manejan bajo estricta privacidad y solo se usan para los fines del proyecto.`;
+        return `${saludoInicial}Tu información está completamente segura y protegida bajo estrictos acuerdos de confidencialidad. Para gestionar tus archivos y requerimientos de forma confiable, escríbeme en mi perfil de Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
     }
 
-    // 8. TIPOS DE PROYECTOS Y ALCANCE
-    if (
-        mensaje.includes("proyectos") ||
-        mensaje.includes("proyecto") ||
-        mensaje.includes("que manejan") ||
-        mensaje.includes("que tipo") ||
-        mensaje.includes("alcance") ||
-        mensaje.includes("tamaño")
-    ) {
-        return `${saludoInicial}En Lysifix nos adaptamos por completo a tus necesidades. Desarrollamos cualquier tipo de proyecto, desde soluciones compactas y automatizaciones específicas hasta sistemas a gran escala. Platícanos tu idea y la diseñamos a tu medida.`;
-    }
 
-    // 9. METODOLOGÍA DE TRABAJO / AVANCES
     if (
         mensaje.includes("como trabajan") ||
         mensaje.includes("cómo trabajan") ||
@@ -880,10 +790,10 @@
         mensaje.includes("revision") ||
         mensaje.includes("revisión")
     ) {
-        return `${saludoInicial}Nuestro proceso es transparente: definimos el alcance en Fiverr, estructuramos hitos de entrega y realizamos revisiones constantes contigo para asegurarnos de que el software o automatización cumpla exactamente con lo que necesitas.`;
+        return `${saludoInicial}Mi proceso de trabajo es 100% transparente: definimos los requerimientos paso a paso y te mantengo al tanto de cada avance de forma segura a través de Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a> `;
     }
 
-    // 10. TECNOLOGÍAS, LENGUAJES Y PORTAFOLIO
+    
     if (
         mensaje.includes("lenguaje") ||
         mensaje.includes("tecnologia") ||
@@ -894,10 +804,10 @@
         mensaje.includes("portafolio") ||
         mensaje.includes("ejemplo")
     ) {
-        return `${saludoInicial}Trabajamos con tecnologías modernas (como Python, JavaScript, Node.js, integraciones de Excel, APIs y bases de datos) según lo requiera tu proyecto. Puedes ver ejemplos de nuestros trabajos anteriores directamente en nuestro perfil de Fiverr.`;
+        return `${saludoInicial}Me especializo en desarrollo con Python (Flask/Django), scripts avanzados de automatización para Excel/CSV y bots personalizados. Puedes explorar ejemplos reales en mi catálogo de Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a> `;
     }
 
-    // 11. QUÉ SERVICIOS OFRECEN (General)
+ 
     if (
         mensaje.includes("servicios") || 
         mensaje.includes("trabajos") || 
@@ -911,10 +821,10 @@
         mensaje.includes("archivo") ||
         mensaje.includes("script")
     ) {
-        return `${saludoInicial}En Lysifix nos especializamos en Desarrollo Web, automatización de datos y archivos, y Software a la medida.`;
+        return `${saludoInicial}Ofrezco soluciones en automatización con Python, desarrollo de bots, web scraping y aplicaciones Flask. Explora el catálogo de servicios  directamente aquí: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
     }
 
-    // 12. DATOS DE CONTACTO DIRECTO
+    
     if (
         mensaje.includes("contacto") || 
         mensaje.includes("contactar") || 
@@ -930,7 +840,28 @@
         mensaje.includes("mensajear") || 
         mensaje.includes("informac") || 
         mensaje.includes("info")
-    ) {
+    )
+
+        {
+            return `${saludoInicial}Para contrataciones inmediatas, soporte y mensajes directos de forma 100% segura, te invito a escribirme a mi perfil oficial de Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a>`;
+        }
+
+        if (mensaje.includes("servicios") || mensaje.includes("trabajos")|| mensaje.includes("realizan") || mensaje.includes("manejan") || mensaje.includes("software") || mensaje.includes("desarrollo")) {
+            return `${saludoInicial}En Lysifix nos especializamos en Desarrollo Web, automatización de datos y archivos, y Software a la medida.`;
+        }
+
+        if (mensaje.includes("contacto") || mensaje.includes("telefono") || mensaje.includes("correo")) {
+            return `${saludoInicial}Puedes dejarnos un mensaje en la sección de 'Contacto' de esta página.`;
+        }
+
+        if (saludoInicial !== "") {
+            return saludoInicial.trim();
+        }
+
+        return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. Si deseas una cotización o hablar conmigo directamente, te invito a enviarme un mensaje en Fiverr: <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a> ¡Será un gusto trabajar contigo!`;
+    }
+    
+    {
         return `${saludoInicial}Para brindarte una atención personalizada y segura, gestiono todos mis proyectos a través de Fiverr. Puedes ver mis servicios y escribire directamente haciendo clic en este enlace  <a href="https://es.fiverr.com/users/gerardo_cg/seller_dashboard" class="boton-fiverr">Visitar Fiverr</a> ¡Será un gusto trabajar contigo!`;
     }
 
@@ -939,9 +870,6 @@
         return saludoInicial.trim();
     }
 
-    // 14. RESPUESTA POR DEFECTO
-    return "Disculpa, todavía estoy aprendiendo y no entendí tu pregunta. ¿Podrías intentar preguntar de otra forma o detallar más tu solicitud?";
-}
 
     document.getElementById('entrada').addEventListener('keydown', (event) => {
             if (event.key === 'Enter') enviarMensaje();
