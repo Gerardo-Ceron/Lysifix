@@ -699,15 +699,17 @@
         ) {
             return `${saludoInicial}Para tu total seguridad  y respaldo ante fraudes, todas las transacciones y pagos se gestionan exclusivamente a través de mi perfil de Fiverr: <a href="https://es.fiverr.com/gerardo_cg?public_mode=true" class="boton-fiverr">Visitar Fiverr</a>`;
         }
-         if (
+        if (
             mensaje.includes("fiverr") ||
             mensaje.includes("fuera de fiverr") ||
             mensaje.includes("por fuera") ||
             mensaje.includes("trato directo") ||
             mensaje.includes("whatsapp") ||
+            mensaje.includes("whats") ||
             mensaje.includes("correo electronico") ||
             mensaje.includes("email") ||
-            mensaje.includes("pdf")
+            mensaje.includes("pdf") ||
+            mensaje.includes("archivo")
         ) {
             return `${saludoInicial}Todas nuestras operaciones y consultorías técnicas se procesan bajo los protocolos de seguridad de Fiverr. No realizamos tratos directos fuera de la plataforma para asegurar la total transparencia en las entregas de código. Puedes abrir un ticket de proyecto de forma segura a través <a href="https://es.fiverr.com/gerardo_cg?public_mode=true" class="boton-fiverr">Visitar Fiverr</a>`;
         }
