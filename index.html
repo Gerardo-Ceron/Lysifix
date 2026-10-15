@@ -89,14 +89,12 @@
     50% { opacity: 1; }
 }    
     /* Estilos blindados para que no choquen con estilos.css */
-    #chat-contenedor {
+   #chat-contenedor {
     position: relative !important;
     flex: 0 1 220px !important;
     width: 250px !important;
-    
-    /* CAMBIO 1: Cambia el alto fijo por un alto máximo y automático */
-   max-height: 45vh !important; /* Evita que supere el 45% del alto de la pantalla, ideal para cuando se abre el teclado */
-    
+    height: auto !important; 
+    max-height: 450px !important; /* Regresa a un valor alto en px para la laptop */
     border: 1px solid #ccc !important;
     border-radius: 10px !important;
     display: none;
@@ -105,9 +103,15 @@
     font-family: Arial, sans-serif !important;
     box-shadow: 0 4px 10px rgba(2,0,0,0.1) !important;
     z-index: 2 !important;
-    
-    /* CAMBIO 2: Permite que aparezca una barra de scroll si el texto es muy largo en celulares */
     overflow-y: auto !important; 
+}
+
+/* 2. REGLA EXCLUSIVA PARA CELULARES (Evita que el teclado rompa el diseño) */
+@media (max-width: 480px) {
+    #chat-contenedor {
+        /* Usamos dvh (Dynamic Viewport Height) que se encoge dinámicamente cuando el teclado del celular se abre */
+        max-height: 50dvh !important; 
+    }
 }
     #chat-header { 
         background: #c19b02 !important; 
